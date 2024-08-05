@@ -1,0 +1,98 @@
+/**
+ * Creating a sidebar enables you to:
+ * - create an ordered group of docs
+ * - render a sidebar for each doc of that group
+ * - provide next/previous navigation
+ *
+ * The sidebars can be generated from the filesystem, or explicitly defined here.
+ *
+ * Create as many sidebars as you want.
+ */
+
+// @ts-check
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
+const sidebars = {
+  greenIDSidebar: [
+    {
+      type: 'category',
+      label: 'GreenID Overview',
+      items: [
+        'greenid-overview/overview-and-options-comparison',
+        {
+          type: 'category',
+          label: 'What is GreenID?',
+          items: [
+            'greenid-overview/what-is-greenid',
+            {
+              type: 'category',
+              label: 'Use Cases',
+              items: ['greenid-overview/use-cases/industry-segment-scenarios'],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  developerGuidesSidebar: [
+    {
+      type: 'category',
+      label: 'Developer Guides',
+      items: [
+        {
+          type: 'category',
+          label: 'Quick Start Guides',
+          items: ['developer-guides/quickstart/integration-method-admin-panel'],
+        },
+      ],
+    },
+  ],
+  integrationMethodsSidebar: [
+    {
+      type: 'category',
+      label: 'GreenID Integration Methods',
+      items: [
+        'integration-methods/overview',
+        {
+          type: 'category',
+          label: 'GreenID Core APIs',
+          items: ['integration-methods/core-apis/overview'],
+        },
+      ],
+    },
+  ],
+  apiReferenceSidebar: [
+    {
+      type: 'category',
+      label: 'API Reference',
+      items: ['api-reference/core-api-details-examples'],
+    },
+  ],
+  updatesAndReleasesSidebar: [
+    {
+      type: 'category',
+      label: 'Updates and Releases',
+      items: ['updates-and-releases/changelog'],
+    },
+  ],
+  customerSupportFaqsSidebar: [
+    {
+      type: 'category',
+      label: 'Customer Support / FAQs',
+      items: [
+        {
+          type: 'category',
+          label: 'FAQs',
+          items: ['customer-support-faqs/faqs/api'],
+        },
+        {
+          type: 'category',
+          label: 'Industry/Other Information',
+          items: ['customer-support-faqs/industry-other-information/diy-driver-licence-card-onward-storage'],
+        },
+      ],
+    },
+  ],
+};
+
+export default sidebars;
