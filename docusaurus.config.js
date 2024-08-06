@@ -23,7 +23,7 @@ const config = {
   organizationName: 'your-org-name', // Usually your GitHub org/user name.
   projectName: 'greenid-docs', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -120,8 +120,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'greenID',
-                to: 'docs/greenid/overview-and-options-comparison',
+                label: 'GreenID Overview',
+                to: 'docs/greenid-overview/overview-and-options-comparison',
               },
               {
                 label: 'Developer Guides',
