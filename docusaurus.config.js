@@ -211,9 +211,4 @@ const config = {
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
-      },
-    }),
-};
-
-export default config;
+        darkTheme: priscopyright: `Copyright © ${new Date().getFullYear()} Your Project, Inc. Built with Docusaurus.`,
