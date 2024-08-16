@@ -4,7 +4,9 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import { themes as prismThemes } from 'prism-react-renderer';
+import {
+  themes as prismThemes
+} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -69,88 +71,42 @@ const config = {
           src: 'img/green-ID-GBG.svg',
           srcDark: 'img/green-ID-GBG-reversed.svg',
         },
-        items: [
+        items: [{
+            to: 'docs/greenid-overview/overview-and-options-comparison/what-is-greenid',
+            label: 'GreenID Overview' // No comma here since it's the last property in the object
+          },
           {
-            to: 'docs/greenid-overview/o
-      items: [
-        {
-          to: 'docs/greenid-overview/overview-and-options-comparison/what-is-greenid',
-          label: 'GreenID Overview'  // No comma here since it's the last property in the object
-        },
-        {
-          to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
-          label: 'Developer Guides'  // No comma here
-        },
-        {
-          to: 'docs/integration-methods/overview',
-          label: 'GreenID Integration Methods'  // No comma here
-        },
-        {
-          to: 'docs/api-reference/core-api-details-examples',
-          label: 'API Reference'  // No comma here
-        },
-        {
-          to: 'docs/updates-and-releases/changelog',
-          label: 'Updates and Releases'  // No comma here
-        },
-        {
-          to: 'docs/customer-support-faqs/faqs/api',
-          label: 'Customer Support / FAQs'  // No comma here
-        },
-        {
-          href: 'https://github.com/your-org-name/greenid-docs',
-          label: 'GitHub',
-          position: 'right'  // No comma here
-        }
-      ]verview-an// d-options-comparis// on',
-        //     label: 'GreenID Overview',
-            position: 'left',
- /what-is-greenid/what-is-gre// enid           sidebarId: 'gr,enIDSideba// r'
+            to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
+            label: 'Developer Guides' // No comma here
           },
-    ,
-        //     sidebarId: 'greenIDSidebar'integratio// n-method-admin// -panel',
-    //         label: 'Developer Guides',
-            position: 'left',
-            sidebar// Id: 'developerGuidesSidebar'
-,         }// ,
           {
-      ,
-        //     sidebarId: 'developerGuidesSidebar'         l// abel: 'GreenID//  Integration // Methods',
-            position: 'left',
-            si// debarId: 'integrationMethodsSidebar'
-   ,      },
- //          {
-            to: 'doc// s/api-reference/core-api-details-examples',
-        //     label: 'AP// I Reference',// 
-            position: 'left',
-            sidebarId: 'apiReferen// ceSidebar'
+            to: 'docs/integration-methods/overview',
+            label: 'GreenID Integration Methods' // No comma here
           },
-  ,       {
- //            to: 'docs/updates-an// d-releases/changelog',
-            label: 'Upd// ates and Relea// ses',
-       //      position: 'left',
-            sidebarId: 'updatesAn// dReleasesSidebar'
+          {
+            to: 'docs/api-reference/core-api-details-examples',
+            label: 'API Reference' // No comma here
           },
-  ,       {
- //            to: 'docs/customer-s// upport-faqs/faqs/api',
-            label: 'Customer // Support / FAQs// ',
-          //   position: 'left',
-            sidebarId: 'customerSupp// ortFaqsSidebar'
+          {
+            to: 'docs/updates-and-releases/changelog',
+            label: 'Updates and Releases' // No comma here
           },
-       ,  {
-      //       href: 'https://github.com// /your-org-name/greenid-docs',
-            label: 'Git// Hub',
-        //     position://  'right',
+          {
+            to: 'docs/customer-support-faqs/faqs/api',
+            label: 'Customer Support / FAQs' // No comma here
           },
-        ],
+          {
+            href: 'https://github.com/your-org-name/greenid-docs',
+            label: 'GitHub',
+            position: 'right' // No comma here
+          }
+        ]
       },
       footer: {
-        s// tyle: 'dark',
-        links: [// 
-          {
-            title: // 'Docs',
-      //       items: [
-              {
+        style: 'dark',
+        links: [{
+            title: 'Docs',
+            items: [{
                 label: 'GreenID Overview',
                 to: 'docs/greenid-overview/overview-and-options-comparison',
               },
@@ -178,8 +134,7 @@ const config = {
           },
           {
             title: 'Community',
-            items: [
-              {
+            items: [{
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/docusaurus',
               },
@@ -195,8 +150,7 @@ const config = {
           },
           {
             title: 'More',
-            items: [
-              {
+            items: [{
                 label: 'Blog',
                 to: '/blog',
               },
@@ -211,4 +165,9 @@ const config = {
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: priscopyright: `Copyright © ${new Date().getFullYear()} Your Project, Inc. Built with Docusaurus.`,
+        darkTheme: prismThemes.dracula,
+      },
+    }),
+};
+
+export default config;
