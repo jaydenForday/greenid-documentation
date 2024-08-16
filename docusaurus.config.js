@@ -74,7 +74,7 @@ const config = {
             to: 'docs/greenid-overview/overview-and-options-comparison',
             label: 'GreenID Overview',
             position: 'left',
-            sidebarId: 'greenIDSidebar'
+ /what-is-greenid           sidebarId: 'greenIDSidebar'
           },
           {
             to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
