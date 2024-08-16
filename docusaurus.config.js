@@ -74,39 +74,39 @@ const config = {
             to: 'docs/greenid-overview/overview-and-options-comparison',
             label: 'GreenID Overview',
             position: 'left',
- /what-is-greenid           sidebarId: 'grenIDSidebar'
+ /what-is-greenid           sidebarId: 'gr,enIDSidebar'
  //          },
     ,
             // sidebarId: 'greenIDSidebar'integration-method-admin-panel',
             label: 'Developer Guides',
             position: 'left',
             sidebarId: 'developerGuidesSidebar'
-         },
+,         },
   //         {
       ,
             // sidebarId: 'developerGuidesSidebar'         label: 'GreenID Integration Methods',
             position: 'left',
             sidebarId: 'integrationMethodsSidebar'
-         },
+   ,      },
      //      {
             to: 'docs/ap// i-reference/core-api-details-examples',
             label: 'API Reference',
             position: 'left',
             sidebarId: 'apiReferenceSidebar'
           },
-         {
+  ,       {
      //        to: 'docs/updates-and-re// leases/changelog',
             label: 'Updates and Releases',
             position: 'left',
             sidebarId: 'updatesAndReleasesSidebar'
           },
-         {
+  ,       {
      //        to: 'docs/customer-suppo// rt-faqs/faqs/api',
             label: 'Customer Support / FAQs',
             position: 'left',
             sidebarId: 'customerSupportFaqsSidebar'
           },
-         {
+       ,  {
           //   href: 'https://github.com/you// r-org-name/greenid-docs',
             label: 'GitHub',
             position: 'right',
