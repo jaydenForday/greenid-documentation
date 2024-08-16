@@ -76,39 +76,44 @@ const config = {
             position: 'left',
  /what-is-greenid           sidebarId: 'greenIDSidebar'
           },
-          {
-            to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
+                   //eveloper-guides/quickstart/
+            sidebarId: 'mySidebar'integration-method-admin-panel',
             label: 'Developer Guides',
             position: 'left',
             sidebarId: 'developerGuidesSidebar'
           },
           {
-            to: 'docs/integration-methods/overview',
-            label: 'GreenID Integration Methods',
+            to: 'docs///integration-methods/overview',
+   
+            sidebarId: 'mySidebar'         label: 'GreenID Integration Methods',
             position: 'left',
             sidebarId: 'integrationMethodsSidebar'
           },
           {
-            to: 'docs/api-reference/core-api-details-examples',
+            to: 'docs/ap//i-reference/core-api-details-examples'
+            sidebarId: 'mySidebar',
             label: 'API Reference',
             position: 'left',
             sidebarId: 'apiReferenceSidebar'
           },
           {
-            to: 'docs/updates-and-releases/changelog',
-            label: 'Updates and Releases',
+            to: 'docs/updates-and-re// leases/changelog',
+            lab            sidebarId: 'mySidebar'el: 'Updat
+          es and Releases',
             position: 'left',
             sidebarId: 'updatesAndReleasesSidebar'
           },
           {
-            to: 'docs/customer-support-faqs/faqs/api',
-            label: 'Customer Support / FAQs',
+            to: 'docs/customer-suppo// rt-faqs/faqs/api',
+            label: 'Customer Su  sidebarId: 'mySidebar'
+          pport / FAQs',
             position: 'left',
             sidebarId: 'customerSupportFaqsSidebar'
           },
           {
-            href: 'https://github.com/your-org-name/greenid-docs',
-            label: 'GitHub',
+            href: 'https://github.com/you// r-org-name/greenid-docs',
+            l
+            sidebarId: 'mySidebar'abel: 'GitHub',
             position: 'right',
           },
         ],
