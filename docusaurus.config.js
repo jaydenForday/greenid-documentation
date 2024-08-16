@@ -71,85 +71,54 @@ const config = {
         },
         items: [
           {
-            to: 'docs/greenid-overview/o
-          items: [
-          {
             to: 'docs/greenid-overview/overview-and-options-comparison',
-            label: 'GreenID Overview'  // No comma here since it's the last property in the object
-          },
-          {
-            to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
-            label: 'Developer Guides'  // No comma here
-          },
-          {
-            to: 'docs/integration-methods/overview',
-            label: 'GreenID Integration Methods'  // No comma here
-          },
-          {
-            to: 'docs/api-reference/core-api-details-examples',
-            label: 'API Reference'  // No comma here
-          },
-          {
-            to: 'docs/updates-and-releases/changelog',
-            label: 'Updates and Releases'  // No comma here
-          },
-          {
-            to: 'docs/customer-support-faqs/faqs/api',
-            label: 'Customer Support / FAQs'  // No comma here
-          },
-          {
-            href: 'https://github.com/your-org-name/greenid-docs',
-            label: 'GitHub',
-            position: 'right'  // No comma here
-          }
-        ]verview-an// d-options-comparis// on',
-        //     label: 'GreenID Overview',
+            label: 'GreenID Overview',
             position: 'left',
- /what-is-gre// enid           sidebarId: 'gr,enIDSideba// r'
+ /what-is-greenid/what-is-greenid           sidebarId: 'gr,enIDSidebar'
           },
     ,
-        //     sidebarId: 'greenIDSidebar'integratio// n-method-admin// -panel',
-    //         label: 'Developer Guides',
+            sidebarId: 'greenIDSidebar'integration-method-admin-panel',
+            label: 'Developer Guides',
             position: 'left',
-            sidebar// Id: 'developerGuidesSidebar'
-,         }// ,
+            sidebarId: 'developerGuidesSidebar'
+,         },
           {
       ,
-        //     sidebarId: 'developerGuidesSidebar'         l// abel: 'GreenID//  Integration // Methods',
+            sidebarId: 'developerGuidesSidebar'         label: 'GreenID Integration Methods',
             position: 'left',
-            si// debarId: 'integrationMethodsSidebar'
+            sidebarId: 'integrationMethodsSidebar'
    ,      },
- //          {
-            to: 'doc// s/api-reference/core-api-details-examples',
-        //     label: 'AP// I Reference',// 
+          {
+            to: 'docs/api-reference/core-api-details-examples',
+            label: 'API Reference',
             position: 'left',
-            sidebarId: 'apiReferen// ceSidebar'
+            sidebarId: 'apiReferenceSidebar'
           },
   ,       {
- //            to: 'docs/updates-an// d-releases/changelog',
-            label: 'Upd// ates and Relea// ses',
-       //      position: 'left',
-            sidebarId: 'updatesAn// dReleasesSidebar'
+            to: 'docs/updates-and-releases/changelog',
+            label: 'Updates and Releases',
+            position: 'left',
+            sidebarId: 'updatesAndReleasesSidebar'
           },
   ,       {
- //            to: 'docs/customer-s// upport-faqs/faqs/api',
-            label: 'Customer // Support / FAQs// ',
-          //   position: 'left',
-            sidebarId: 'customerSupp// ortFaqsSidebar'
+            to: 'docs/customer-support-faqs/faqs/api',
+            label: 'Customer Support / FAQs',
+            position: 'left',
+            sidebarId: 'customerSupportFaqsSidebar'
           },
        ,  {
-      //       href: 'https://github.com// /your-org-name/greenid-docs',
-            label: 'Git// Hub',
-        //     position://  'right',
+            href: 'https://github.com/your-org-name/greenid-docs',
+            label: 'GitHub',
+            position: 'right',
           },
         ],
       },
       footer: {
-        s// tyle: 'dark',
-        links: [// 
+        style: 'dark',
+        links: [
           {
-            title: // 'Docs',
-      //       items: [
+            title: 'Docs',
+            items: [
               {
                 label: 'GreenID Overview',
                 to: 'docs/greenid-overview/overview-and-options-comparison',
