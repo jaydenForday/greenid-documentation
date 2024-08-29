@@ -1,13 +1,8 @@
----
----
+--
 id: what-is-greenid
 title: What is GreenID?
 ---
----
-
-
-
-# What Is Greenid
+--- What Is Greenid
 # greenID Overview
 ### Summary
 greenID is an identity verification system which collects details about a consumer's identity, or a business structure, and compares them against authoritative sources of identity data to see if there is a match. Authoritative sources include databases, document validation and biometric verification. 
