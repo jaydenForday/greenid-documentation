@@ -44,4 +44,4 @@ It is possible for consumers to start their verification in one channel (eg. web
 The Admin Panel is a web-based interface which allows you to review results and reports from greenID and to initiate verification requests. If no other integration channel is used, the Admin Panel can be used by service staff to input data on behalf of consumers and submit a verification request.
 
 [Admin Panel for Individual Verification]
-Admin Panel for Business Verification
+Admin Panel for Business Verification[]
