@@ -1,6 +1,6 @@
 ---
-id: what-is-greenid title: What is GreenID?
-title: What Is Greenid
+id: what-is-greenid title:
+title: What Is Greenid?
 ---
 
 # greenID Overview
