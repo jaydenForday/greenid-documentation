@@ -1,5 +1,5 @@
 ---
-id: what-is-greenid title:
+id: what-is-greenid title
 title: What Is Greenid?
 ---
 
