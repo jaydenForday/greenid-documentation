@@ -11,7 +11,7 @@ greenID is an identity verification system which collects details about a consum
 
 To use greenID, the greenID verification process must be embedded into other systems using API, Web and/or Mobile SDK options. Verification results can be retrieved via those channels and/or via a web-based administrator interface.
 
-View the options compared in a tabular format.
+View the options compared in a tabular format. \<add link>
 
 ### greenID Core
 
@@ -33,18 +33,20 @@ All options provide a means of connecting to greenID Core, which is where the ve
 
 ##### Business Verification
 
-**Business Verification:** is currently only fully accessible via the Admin Console, the web-based administrator interface. Limited API options are available.
+**Business Verification:**\<add link> is currently only fully accessible via the Admin Console, the web-based administrator interface. Limited API options are available.
 
 ##### Individual Verification
 
 It is possible for consumers to start their verification in one channel (eg. web), continue making updates in this channel or another (eg. web) and then finish in any channel (eg. API).
 
-**Web:** the simplest integration option, greenID Web allows you to embed javascript within your website that connects with greenID to allow consumers to complete an identity interview. This is the default option that the majority of our customers select.  greenID Web can be easily customised to match the look and feel of your website. greenID web provides a streamlined means for using greenID and avoids using our more complex web service API and custom screen development. greenID Web can be implemented in your website by an experienced web developer with a minimum of effort.
+**Web:**\<add link> the simplest integration option, greenID Web allows you to embed javascript within your website that connects with greenID to allow consumers to complete an identity interview. This is the default option that the majority of our customers select.  greenID Web can be easily customised to match the look and feel of your website. greenID web provides a streamlined means for using greenID and avoids using our more complex web service API and custom screen development. greenID Web can be implemented in your website by an experienced web developer with a minimum of effort.
 
-**API:** a more complex option which provides web service access to greenID. It permits a highly customised option for embedding greenID within any API-capable system.  greenID API can be implemented in your system by an architect who is knowledgeable in your system, some experienced developers, and extensive consultation with greenID technical experts.
+**API:**\<add link> a more complex option which provides web service access to greenID. It permits a highly customised option for embedding greenID within any API-capable system.  greenID API can be implemented in your system by an architect who is knowledgeable in your system, some experienced developers, and extensive consultation with greenID technical experts.
 
 ### Admin Panel
 
 The Admin Panel is a web-based interface which allows you to review results and reports from greenID and to initiate verification requests. If no other integration channel is used, the Admin Panel can be used by service staff to input data on behalf of consumers and submit a verification request.
 
-\[Admin Panel for Individual Verification] Admin Panel for Business Verification\[]
+\[Admin Panel for Individual Verification] \<add link>
+
+\[Admin Panel for Business Verification] \<add link>
