@@ -1,9 +1,9 @@
 ---
 id: what-is-greenid
-title: What Is Greenid?
+title: What is Greenid?
 ---
 
-# greenID Overview
+# What is greenID?
 
 ### Summary
 
