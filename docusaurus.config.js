@@ -72,7 +72,7 @@ const config = {
           srcDark: 'img/green-ID-GBG-reversed.svg',
         },
         items: [{
-            to: 'docs/greenid-overview/overview-and-options-comparison/what-is-greenid',
+            to: 'docs/greenid-overview/overview/what-is-greenid',
             label: 'GreenID Overview' // No comma here since it's the last property in the object
           },
           {
