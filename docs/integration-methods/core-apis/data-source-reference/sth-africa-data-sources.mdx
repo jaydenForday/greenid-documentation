@@ -1,0 +1,45 @@
+---
+id: sth-africa-data-sources
+title: South African Data Sources
+---
+
+# South African Data Sources
+
+| **Title**      | **Webservice Name** | **Type**       | **Coverage** |
+| -------------- | ------------------- | -------------- | ------------ |
+| National ID    | nationalidentity    | National ID    | South Africa |
+| zacreditheader | compuscan           | Credit History | South Africa |
+
+## nationalidentity (version 1)
+
+Also known as National ID
+
+| **Field name**                        | **Description**                     | **Required** | **Restrictions**               |
+| ------------------------------------- | ----------------------------------- | ------------ | ------------------------------ |
+| greenid\_nationalidentity\_number     | The person' South African ID number | Yes          | Must be a valid ZA national ID |
+| greenid\_nationalidentity\_givenname  | The person's given name             | Yes          | Length between 1 and 255       |
+| greenid\_nationalidentity\_middlename | The person's middle name            | No           | Length between 1 and 255       |
+| greenid\_nationalidentity\_surname    | The person's surname                | Yes          | Length between 1 and 255       |
+| greenid\_nationalidentity\_dob        | The person's date of birth          | Yes          | DD/MM/YYYY                     |
+| greenid\_nationalidentity\_country    | ZA                                  | Yes          | ZA for South Africa            |
+
+## zacreditheader (version 1)
+
+Also known as Compuscan 
+
+| **Field name**                   | **Description**                                                               | **Required** | **Restrictions**                   |
+| -------------------------------- | ----------------------------------------------------------------------------- | ------------ | ---------------------------------- |
+| greenid\_compuscan\_number       | The person' South African ID number                                           | Yes          | Must be a valid ZA national ID     |
+| greenid\_compuscan\_phonenumber  | The person's phone number                                                     | No           | Length not exceeding 13 characters |
+| greenid\_compuscan\_givenname    | The person's given name                                                       | Yes          | Length not exceeding 35 characters |
+| greenid\_compuscan\_middlename   | The person's middle name                                                      | No           | Length not exceeding 35 characters |
+| greenid\_compuscan\_surname      | The person's surname                                                          | Yes          | Length not exceeding 35 characters |
+| greenid\_compuscan\_dob          | The person's date of birth                                                    | Yes          | DD/MM/YYYY                         |
+| greenid\_compuscan\_streetnumber | The street number component of the person's address                           | No           | Length not exceeding 50 characters |
+| greenid\_compuscan\_streetname   | The street name component of the person's address                             | No           | Length not exceeding 50 characters |
+| greenid\_compuscan\_suburb       | The suburb component of the person's address                                  | No           | Length not exceeding 50 characters |
+| greenid\_compuscan\_city         | The city component of the person's address                                    | No           | Length not exceeding 50 characters |
+| greenid\_compuscan\_postcode     | The postcode component of the person's address                                | No           | Four digits                        |
+| greenid\_compuscan\_tandc        | An indication that the person agrees to the terms and conditions of the check | Yes          | "on"                               |
+
+\
