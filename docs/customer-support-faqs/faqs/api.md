@@ -3,6 +3,6 @@ id: api
 title: API
 ---
 
-## API
+# API
 
 Content coming soon...
