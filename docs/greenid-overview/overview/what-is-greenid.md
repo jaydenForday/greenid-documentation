@@ -5,7 +5,7 @@ title: What is Greenid?
 
 # What is greenID?
 
-### Summary
+## Summary
 
 greenID is an identity verification system which collects details about a consumer's identity, or a business structure, and compares them against authoritative sources of identity data to see if there is a match. Authoritative sources include databases, document validation and biometric verification.
 
@@ -13,7 +13,7 @@ To use greenID, the greenID verification process must be embedded into other sys
 
 View the options compared in a tabular format. \<add link>
 
-### greenID Core
+## greenID Core
 
 The heart of greenID, the core contains:
 
@@ -25,17 +25,17 @@ The heart of greenID, the core contains:
 
 Your greenID representative will have provided a Rules Guide and Checklist which outlines how to select configuration options within greenID Core.
 
-### greenID Access and Integration
+## greenID Access and Integration
 
 There are multiple ways to access greenID functionality from within your system. You may need a combination of these options depending on what type of systems you are running.
 
 All options provide a means of connecting to greenID Core, which is where the verification process occurs.
 
-##### Business Verification
+### Business Verification
 
 **Business Verification:**\<add link> is currently only fully accessible via the Admin Console, the web-based administrator interface. Limited API options are available.
 
-##### Individual Verification
+### Individual Verification
 
 It is possible for consumers to start their verification in one channel (eg. web), continue making updates in this channel or another (eg. web) and then finish in any channel (eg. API).
 
@@ -43,7 +43,7 @@ It is possible for consumers to start their verification in one channel (eg. web
 
 **API:**\<add link> a more complex option which provides web service access to greenID. It permits a highly customised option for embedding greenID within any API-capable system.  greenID API can be implemented in your system by an architect who is knowledgeable in your system, some experienced developers, and extensive consultation with greenID technical experts.
 
-### Admin Panel
+## Admin Panel
 
 The Admin Panel is a web-based interface which allows you to review results and reports from greenID and to initiate verification requests. If no other integration channel is used, the Admin Panel can be used by service staff to input data on behalf of consumers and submit a verification request.
 
