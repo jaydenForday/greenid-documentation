@@ -13,43 +13,11 @@ title: Testing Data
 
 :::note
 
-**TESTING GUIDELINE: ** When testing please use test data that meets field validation. Some data sources may result in failures or errors if the appropriate validation is not met.
+\*\*TESTING GUIDELINE: \*\* When testing please use test data that meets field validation. Some data sources may result in failures or errors if the appropriate validation is not met.
 
 :::
 
-It's very important to test your verification rule set using both real live data and 'stubs'. Without doing this, potential problems can go unnoticed until it's too late. \<update links>
-
-- [About real data testing](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Aboutrealdatatesting)
-
-- [About stubs testing](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Aboutstubstesting)
-
-  - [Turning on Stubs](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-TurningonStubs)
-
-  - [Using Stubs](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-UsingStubs)
-
-  - [Using stubs for New Zealand data sources](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-UsingstubsforNewZealanddatasources)
-
-  - [Codes for background checks (Australia)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Codesforbackgroundchecks\(Australia\))
-
-  - [Codes for background checks (New Zealand)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Codesforbackgroundchecks\(NewZealand\))
-
-  - [Codes for interactive checks (Australia)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Codesforinteractivechecks\(Australia\))
-
-  - [Codes for interactive checks (New Zealand)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-Codesforinteractivechecks\(NewZealand\))
-
-  - [Codes for the Credit Header checks](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-CodesfortheCreditHeaderchecks)
-
-  - [Full or Partial Data Matches in Stubs](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-FullorPartialDataMatchesinStubs)
-
-  - [Testing Lockout Functionality](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-TestingLockoutFunctionality)
-
-  - [Testing greenID Alert Responses](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-TestinggreenIDAlertResponses)
-
-  - [Testing GBG Alert (stubs mode)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-TestingGBGAlert\(stubsmode\))
-
-  - [Testing GBG Alert (non-stubs mode)](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-TestingGBGAlert\(non-stubsmode\))
-
-  - [Visa Entitlement Check ](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing#DataTesting-VisaEntitlementCheck)
+It's very important to test your verification rule set using both real live data and 'stubs'. Without doing this, potential problems can go unnoticed until it's too late.&#x20;
 
 ## About real data testing
 
@@ -95,8 +63,6 @@ When testing please use test data that meets field validation. Some data sources
 
 :::
 
-
-
 Existing background stubs codes will continue to work, so if you have tests with stubs codes in the middle name, they will continue to work. To use stubs 2 with background sources, a different string is required in the middle name field.
 
 **To use stubs 2, the middle name string must being with "2-".** This instructs the greenID stubs manager to use stubs 2. All of the subsequent codes and examples will follow this convention.
@@ -116,8 +82,6 @@ A customer may elect to use stubs codes for New Zealand data sources. These sour
 The code for background checks consists of a series of letters, each of which relate to one of the background checks. GreenID interprets this code and sends back the corresponding result. **Please note there is no difference between the stubs code for a standard or a cascading background source, the same background stubs code applies.**
 
 This series of letters is sent to greenID in the middle name field. The order of these letters is extremely important to ensure the right verification outcome. The order is defined as below:
-
-
 
 | **Position** | **Data Source**                   | **Position** | **Data Source**                                                                                                                                          |
 | ------------ | --------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -212,27 +176,27 @@ The screens for interactive verification are pre-populated with the individual's
 
 Note: interactive methods not mentioned here do not have stubs at this point in time.
 
-| **Interactive source**                        | **Nominated field for code input**       | **'Verified' result ** | **'Verified With Changes' result** | **'Pending Review' result** | **Error (source unavailable)** | **'Not Contributing' result** |
-| --------------------------------------------- | ---------------------------------------- | ---------------------- | ---------------------------------- | --------------------------- | ------------------------------ | ----------------------------- |
-| Australian Electoral Roll (AML version)       | Street No.                               | 1                      | 2                                  | 3                           | 4                              |                               |
-| Australian Passport - DVS                     | Passport No.                             | A1111111               | A2222222                           | A3333333                    | A4444444                       | A6666666                      |
-| Australian Visa - DVS                         | Passport No.                             | A1111111               | A2222222                           | A3333333                    | A4444444                       | A6666666                      |
-| Employment Visa                               | Passport No.                             | A1111111               | A2222222                           | A3333333                    | A4444444                       |                               |
-| Medicare                                      | Medicare No.                             | 2111111111             |                                    | 3333333303                  | 4444444404                     | 6666666606                    |
-| All driver's licences                         | Licence No.                              | 11111111               |                                    | 33333333                    | 44444444                       |                               |
-| WA Electoral Roll                             | Street No.                               | 1                      | 2                                  | 3                           | 4                              |                               |
-| VIC Electoral Roll                            | Year of birth (any day and month are OK) | 1901                   | 1902                               | 1903                        | 1904                           |                               |
-| Medibank Private                              | Membership number                        | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Birth Certificate - DVS                       | Registration No.                         | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Australian Citizenship Certificate - DVS      | Stock No.                                | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Citizenship by descent (post-July 2005) - DVS | Client Id.                               | 11111111111            | 22222222222                        | 33333333333                 | 44444444444                    |                               |
-| Citizenship by descent (pre-July 2005) - DVS  | Register No.                             | 1111                   | 2222                               | 3333                        | 4444                           |                               |
-| Citizenship by descent (pre-July 2005) - DVS  | Entry No.                                | 11111                  | 22222                              | 33333                       | 44444                          |                               |
-| Marriage Certificate - DVS                    | Registration No.                         | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Change of Name Certificate - DVS              | Registration No.                         | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Immi Card - DVS                               | Registration No.                         | AAA111111              | AAA222222                          | AAA333333                   | AAA444444                      |                               |
-| Registration by Descent Certificate - DVS     | Stock No.                                | 11111111               | 22222222                           | 33333333                    | 44444444                       |                               |
-| Centrelink card - DVS                         | CRN                                      | 111111111A             |                                    | 333333333A                  | 444444444A                     | 666666666A                    |
+| **Interactive source**                        | **Nominated field for code input**       | \*\*'Verified' result \*\* | **'Verified With Changes' result** | **'Pending Review' result** | **Error (source unavailable)** | **'Not Contributing' result** |
+| --------------------------------------------- | ---------------------------------------- | -------------------------- | ---------------------------------- | --------------------------- | ------------------------------ | ----------------------------- |
+| Australian Electoral Roll (AML version)       | Street No.                               | 1                          | 2                                  | 3                           | 4                              |                               |
+| Australian Passport - DVS                     | Passport No.                             | A1111111                   | A2222222                           | A3333333                    | A4444444                       | A6666666                      |
+| Australian Visa - DVS                         | Passport No.                             | A1111111                   | A2222222                           | A3333333                    | A4444444                       | A6666666                      |
+| Employment Visa                               | Passport No.                             | A1111111                   | A2222222                           | A3333333                    | A4444444                       |                               |
+| Medicare                                      | Medicare No.                             | 2111111111                 |                                    | 3333333303                  | 4444444404                     | 6666666606                    |
+| All driver's licences                         | Licence No.                              | 11111111                   |                                    | 33333333                    | 44444444                       |                               |
+| WA Electoral Roll                             | Street No.                               | 1                          | 2                                  | 3                           | 4                              |                               |
+| VIC Electoral Roll                            | Year of birth (any day and month are OK) | 1901                       | 1902                               | 1903                        | 1904                           |                               |
+| Medibank Private                              | Membership number                        | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Birth Certificate - DVS                       | Registration No.                         | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Australian Citizenship Certificate - DVS      | Stock No.                                | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Citizenship by descent (post-July 2005) - DVS | Client Id.                               | 11111111111                | 22222222222                        | 33333333333                 | 44444444444                    |                               |
+| Citizenship by descent (pre-July 2005) - DVS  | Register No.                             | 1111                       | 2222                               | 3333                        | 4444                           |                               |
+| Citizenship by descent (pre-July 2005) - DVS  | Entry No.                                | 11111                      | 22222                              | 33333                       | 44444                          |                               |
+| Marriage Certificate - DVS                    | Registration No.                         | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Change of Name Certificate - DVS              | Registration No.                         | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Immi Card - DVS                               | Registration No.                         | AAA111111                  | AAA222222                          | AAA333333                   | AAA444444                      |                               |
+| Registration by Descent Certificate - DVS     | Stock No.                                | 11111111                   | 22222222                           | 33333333                    | 44444444                       |                               |
+| Centrelink card - DVS                         | CRN                                      | 111111111A                 |                                    | 333333333A                  | 444444444A                     | 666666666A                    |
 
 *\*\* Please note that the stub codes are NOT case sensitive.*
 
@@ -252,7 +216,7 @@ The screens for interactive verification are pre-populated with the individual's
 
 Note: interactive methods not mentioned here do not have stubs at this point in time.
 
-| **Interactive source**                  | **Nominated field for code input** | **'Verified' result **                                                                                                    | **'Verified With Changes' result** | **'Pending Review' result** | **Error (source unavailable)** |
+| **Interactive source**                  | **Nominated field for code input** | \*\*'Verified' result \*\*                                                                                                | **'Verified With Changes' result** | **'Pending Review' result** | **Error (source unavailable)** |
 | --------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------------- | ------------------------------ |
 | NZ Transport Authority Driver's Licence | Licence No.                        | 11111111 or AA111111                                                                                                      |                                    | 33333333 or AA333333        | 44444444 or AA444444           |
 | NZ Passport                             | Passport No.                       | A1111111                                                                                                                  | A2222222                           | A3333333                    | A4444444                       |
@@ -357,6 +321,4 @@ As the visa entitlement check does not contribute to verification outcomes, stub
 | F              | Details not Found |
 | E              | Error             |
 
-
-
-\
+\\
