@@ -73,32 +73,32 @@ const config = {
         },
         items: [{
             to: 'docs/greenid-overview/overview/what-is-greenid',
-            label: 'GreenID Overview' // No comma here since it's the last property in the object
+            label: 'Overview' 
           },
           {
-            to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
-            label: 'Developer Guides' // No comma here
+            to: 'docs/developer-guides/overview',
+            label: 'Developer Guides' 
           },
           {
             to: 'docs/integration-methods/overview',
-            label: 'GreenID Integration Methods' // No comma here
+            label: 'Integration Methods' 
           },
           {
             to: 'docs/api-reference/core-api-details-examples',
-            label: 'API Reference' // No comma here
+            label: 'API Reference' 
           },
           {
-            to: 'docs/updates-and-releases/changelog',
-            label: 'Updates and Releases' // No comma here
+            to: 'docs/updates-and-releases/latest-news-and-updates',
+            label: 'Updates and Releases' 
           },
           {
-            to: 'docs/customer-support-faqs/faqs/api',
-            label: 'Customer Support / FAQs' // No comma here
+            to: 'docs/customer-support-faqs/contact-details',
+            label: 'Customer Support / FAQs' 
           },
           {
             href: 'https://github.com/your-org-name/greenid-docs',
             label: 'GitHub',
-            position: 'right' // No comma here
+            position: 'right' 
           }
         ]
       },
@@ -107,7 +107,7 @@ const config = {
         links: [{
             title: 'Docs',
             items: [{
-                label: 'GreenID Overview',
+                label: 'Overview',
                 to: 'docs/greenid-overview/overview-and-options-comparison',
               },
               {
@@ -115,7 +115,7 @@ const config = {
                 to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
               },
               {
-                label: 'GreenID Integration Methods',
+                label: 'Integration Methods',
                 to: 'docs/integration-methods/overview',
               },
               {
@@ -167,7 +167,15 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
+      },
     }),
 };
 
 export default config;
+
+

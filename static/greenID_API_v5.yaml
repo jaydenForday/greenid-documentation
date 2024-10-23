@@ -1,0 +1,3414 @@
+openapi: 3.0.3
+info:
+  title: greenID API
+  description: |-
+    This API documentation covers the lastest release of greenID API version. The documentation is based on the OpenAPI 3.0 specification.
+    
+    In order to start using the greenID API, there are several key requirements. 
+    - You have been setup with a greenID account.  This includes specifying the rules to be used, the data sources that will be available, and a range of other configuration options.
+    - Your OAuth Credentials have been configured.
+
+    Some useful links:
+    - [greenID Overview]("https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/308183066/greenID+Overview")
+    - [greenID API Stubs]("https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/8880678/Data+Testing")
+    
+  contact:
+    name: Customer Support
+    email: customer.support@gbgplc.com
+  version: "5"
+externalDocs:
+  description: Find out more about GBG
+  url: https://gbgplc.com/
+servers:
+  - url: "https://test-au.vixverify.com/greenid/v5"
+tags:
+  - name: "Authentication"
+    description: Generate the access token to use API
+  - name: "Data Matching"
+    description: "Match identity information with DVS & background data source"
+  - name: "Verification Status"
+    description: "Retrieve the IDV results or override them manually"
+  - name: "Data Source"
+    description: "More details on the data source"
+  - name: "Webtoken"
+    description: "Working with webtokens for an existing journey"
+paths:
+  /as/token.oauth2:
+    post:
+      tags:
+        - Authentication
+      summary: Get OAuth2 access token
+      description: Obtain an access token using the password grant type.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: password
+                client_id:
+                  type: string
+                  example: 2123123123
+                client_secret:
+                  type: string
+                  example: secretsecret
+                username:
+                  type: string
+                  example: api-username
+                password:
+                  type: string
+                  example: 123-pass
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+                - username
+                - password
+      responses:
+        '200':
+          description: Access token response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: tokenstring
+                  token_type:
+                    type: string
+                    example: Bearer
+                  expires_in:
+                    type: integer
+                    example: 14399
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: invalid_request
+                  error_description:
+                    type: string
+                    example: The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: invalid_client
+                  error_description:
+                    type: string
+                    example: Client authentication failed.
+  /greenid/v5/customers/{customerId}/verifications:
+    post:
+      tags:
+        - "Data Matching"
+      summary: Register a new IDV journey for an individual in greenID.
+      description: Register a new IDV journey for an individual in greenID.
+      operationId: registerVerification
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verification'
+            examples:
+              illion Credit Header Check:
+                value:
+                  verificationId: abc123
+                  ruleId: illionchd
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Australian Claims Database:
+                value:
+                  verificationId: abc123
+                  ruleId: acd
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Australian Electoral Roll:
+                value:
+                  verificationId: abc123
+                  ruleId: aec
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              illion Segmented Credit Bureau:
+                value:
+                  verificationId: abc123
+                  ruleId: illionsegmentedchd
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Experian Credit Bureau:
+                value:
+                  verificationId: abc123
+                  ruleId: experianchd
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Australian Tenancy:
+                value:
+                  verificationId: abc123
+                  ruleId: tenancyau
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              ASIC:
+                value:
+                  verificationId: abc123
+                  ruleId: asic
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Data Co-op:
+                value:
+                  verificationId: abc123
+                  ruleId: datacoop
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Payroll & Super:
+                value:
+                  verificationId: abc123
+                  ruleId: payrollsuper
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Public Number Directory:
+                value:
+                  verificationId: abc123
+                  ruleId: pnd
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Name and Address:
+                value:
+                  verificationId: abc123
+                  ruleId: nad
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Driver Licence - DVS:
+                value:
+                  verificationId: abc123
+                  ruleId: dvs
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+                  extraData: 
+                    [
+                      {
+                        name: "driversLicenceState",
+                        value: "VIC"
+                      },
+                      {
+                        name: "driversLicenceNumber",
+                        value: "11111111"
+                      },
+                      {
+                        name: "driversCardNumber",
+                        value: "12345678"
+                      }
+                    ] 
+              Australian Passport - DVS:
+                value:
+                  verificationId: abc123
+                  ruleId: dvs
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+                  extraData: 
+                    [
+                      {
+                        name: "passportNumber",
+                        value: "A1111111"
+                      }
+                    ]                   
+              Medicare - DVS:
+                value:
+                  verificationId: abc123
+                  ruleId: dvs
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+                  extraData: 
+                    [
+                      {
+                        name: "medicareCardNumber",
+                        value: "2111111111"
+                      },
+                      {
+                        name: "medicareIndividualReferenceNumber",
+                        value: "1"
+                      },
+                      {
+                        name: "medicareCardExpiryDate",
+                        value: "06/2222"
+                      },
+                      {
+                        name: "medicareCardColour",
+                        value: "G"
+                      },
+                      {
+                        name: "medicareNameOnCard",
+                        value: "John T Smith"
+                      }
+                    ] 
+              Foreign Passport - DVS:
+                value:
+                  verificationId: abc123
+                  ruleId: dvs
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+                  extraData: 
+                    [
+                      {
+                        name: "visaPassportNumber",
+                        value: "A1111111"
+                      },
+                      {
+                        name: "visaCountryOfIssue",
+                        value: "NZL"
+                      }
+                    ]
+              GBG Trust Alert:
+                value:
+                  verificationId: abc123
+                  ruleId: AlertOnly
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+              Visa Entitlement Check:
+                value:
+                  verificationId: abc123
+                  ruleId: VisaCheckOnly
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+                  extraData: [
+                      {
+                      name: "visaEntitlementPassportNumber",
+                      value: "A1111111"
+                      },
+                      {
+                      name: "visaEntitlementPassportCountry",
+                      value: "NZL"
+                    }
+                    ]
+              PEP and Sanctions Screening:
+                value:
+                  verificationId: abc123
+                  ruleId: watchlist
+                  name:
+                    givenName: John
+                    middleNames: TWOPASS
+                    surname: Smith
+                  dob:
+                    day: 14
+                    month: 9
+                    year: 1974
+                  currentResidentialAddress:
+                    propertyName: Farm
+                    flatNumber: U1
+                    streetNumber: "1"
+                    streetName: Main
+                    streetType: St
+                    suburb: Melbourne
+                    state: VIC
+                    postcode: "3000"
+                    country: AU
+                  email: john.Smith@test.com
+                  mobilePhone: "0404123456"
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+              examples:
+                illion Credit Header Check:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "12laKyAvM"
+                    dateCreated: "2024-07-26T10:46:14.946+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "illionchd"
+                    dateVerified: "2024-07-26T10:46:15.034+1000"
+                    backgroundSources:
+                      - name: "Credit History"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T10:46:15.006+1000"
+                    greenIDWebVerificationToken: "662fea1449a0e2902ca081651df1e1acd0bf48b0"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "DnbDataBaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                illion Segmented Credit Bureau:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "1E6EU8nna"
+                    dateCreated: "2024-07-26T12:50:47.601+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "illionsegmentedchd"
+                    dateVerified: "2024-07-26T12:50:48.222+1000"
+                    backgroundSources:
+                      - name: "illion credit header - Australian banking & finance segment"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T12:50:47.652+1000"
+                      - name: "illion credit header - Australian telecommunications segment"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T12:50:47.652+1000"
+                      - name: "illion credit header - Australian utilities segment"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T12:50:47.652+1000"
+                      - name: "illion credit header - Australian public records segment"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T12:50:47.652+1000"
+                    greenIDWebVerificationToken: "d73101bc98dc1581cf600fd54350ab2e3559a945"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "FcsCcbBankingDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "FcsCcbPublicRecordDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 2
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "FcsCcbTelecomDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 3
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "FcsCcbUtilitiesDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 4
+                Experian Credit Bureau:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "1BrnbdqgS"
+                    dateCreated: "2024-07-26T12:57:29.061+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "experianchd"
+                    dateVerified: "2024-07-26T12:57:29.126+1000"
+                    backgroundSources:
+                      - name: "AUBureauHeader"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T12:57:29.104+1000"
+                    greenIDWebVerificationToken: "4505bec4feb29da77fecaa04db0c70c1aa3aa9d2"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "AUBureauHeaderDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                Australian Claims Database:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "bDdRpcFH"
+                    dateCreated: "2024-07-26T11:19:24.328+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "acd"
+                    dateVerified: "2024-07-26T11:19:24.428+1000"
+                    backgroundSources:
+                      - name: "ACD"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T11:19:24.405+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "propertyName"
+                            status: "CONFIRMED"
+                            data: "Farm"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "c77310ab004430a601cc5d1284749ba0091e0fd2"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "ACDDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                Australian Tenancy:
+                  summary: "Response - Australian Tenancy"
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "1HItjFimV"
+                    dateCreated: "2024-07-26T13:02:25.750+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "tenancyau"
+                    dateVerified: "2024-07-26T13:02:25.825+1000"
+                    backgroundSources:
+                      - name: "GDC Tenancy File"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:02:25.803+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "ca837d54db7fe6bcd5df3a5f4c0110ac33f3ed4e"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "GDCTenancyBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                ASIC:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "8yo3CfsT"
+                    dateCreated: "2024-07-26T13:10:29.432+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "asic"
+                    dateVerified: "2024-07-26T13:10:29.512+1000"
+                    backgroundSources:
+                      - name: "GDC Asic Person Name"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:10:29.487+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "48c65c948af57f3d7f4df01ce6104f1c9884b2cc"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "GDCAsicPersonNameDBBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                Data Co-op:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "KG09v7sK"
+                    dateCreated: "2024-07-26T13:12:03.427+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "datacoop"
+                    dateVerified: "2024-07-26T13:12:03.506+1000"
+                    backgroundSources:
+                      - name: "Data Co-op"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:12:03.480+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "propertyName"
+                            status: "CONFIRMED"
+                            data: "Farm"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "153246c1ebf1bfff2271205bfef2a55d3b2788f0"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "GreaterDataDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                Payroll and Super:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "GTGlfiUQ"
+                    dateCreated: "2024-07-26T13:12:53.635+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "payrollsuper"
+                    dateVerified: "2024-07-26T13:12:53.709+1000"
+                    backgroundSources:
+                      - name: "PayrollData"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:12:53.687+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "propertyName"
+                            status: "CONFIRMED"
+                            data: "Farm"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                      - name: "SuperannuationData"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:12:53.687+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "propertyName"
+                            status: "CONFIRMED"
+                            data: "Farm"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "7b8c561be308082355b9c930f26e238a81e54282"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "SuperannuationDataDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "PayrollDataDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 2
+                Public Number Directory:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "U1pqVmqm"
+                    dateCreated: "2024-07-26T13:15:18.042+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "pnd"
+                    dateVerified: "2024-07-26T13:15:18.106+1000"
+                    backgroundSources:
+                      - name: "PND"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:15:18.084+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "cee4d631967842a1fa6c9d3a024f437e878244e9"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "PublicNumberDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                Name and Address:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "ghS3NFTq"
+                    dateCreated: "2024-07-26T13:16:11.525+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "nad"
+                    dateVerified: "2024-07-26T13:16:11.628+1000"
+                    backgroundSources:
+                      - name: "NAD"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:16:11.606+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "023a2b7e5d0a7df1865aa245fcd40e742eb1a1a6"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "NADDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                DVS Australian Electoral Roll:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "jbQrl33W"
+                    dateCreated: "2024-07-26T13:17:36.274+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "aec"
+                    dateVerified: "2024-07-26T13:17:36.361+1000"
+                    backgroundSources:
+                      - name: "Aec"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:17:36.332+1000"
+                        fieldResults:
+                          - name: "flatNumber"
+                            status: "CONFIRMED"
+                            data: "U1"
+                            addressType: "currentAddress"
+                          - name: "streetNumber"
+                            status: "CONFIRMED"
+                            data: "1"
+                            addressType: "currentAddress"
+                          - name: "propertyName"
+                            status: "CONFIRMED"
+                            data: "Farm"
+                          - name: "streetName"
+                            status: "CONFIRMED"
+                            data: "Main"
+                            addressType: "currentAddress"
+                          - name: "streetType"
+                            status: "CONFIRMED"
+                            data: "ST"
+                            addressType: "currentAddress"
+                          - name: "suburb"
+                            status: "CONFIRMED"
+                            data: "Melbourne"
+                            addressType: "currentAddress"
+                          - name: "state"
+                            status: "CONFIRMED"
+                            data: "VIC"
+                            addressType: "currentAddress"
+                          - name: "postcode"
+                            status: "CONFIRMED"
+                            data: "3000"
+                            addressType: "currentAddress"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "3684987624000acf939c57b7b2f4e7b48b9295e2"
+                    sources:
+                      - state: "VERIFIED"
+                        passed: true
+                        name: "AECDVSDatabaseBean"
+                        available: true
+                        notRequired: false
+                        oneSourceLeft: false
+                        order: 1
+                DVS Driver Licence:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "BxtMeqfz"
+                    dateCreated: "2024-07-26T13:18:32.046+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "dvs"
+                    dateVerified: "2024-07-26T13:18:32.128+1000"
+                    backgroundSources:
+                      - name: "VICRegoDVS"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:18:32.092+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "476d62417a995c3d0e0b999cb4bff53aa25c2907"
+                    sources:
+                      - state: "EMPTY"
+                        passed: false
+                        name: "actregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "EMPTY"
+                        passed: false
+                        name: "nswregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 2
+                      - state: "EMPTY"
+                        passed: false
+                        name: "ntregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 3
+                      - state: "EMPTY"
+                        passed: false
+                        name: "qldregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 4
+                      - state: "EMPTY"
+                        passed: false
+                        name: "saregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 5
+                      - state: "EMPTY"
+                        passed: false
+                        name: "tasregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 6
+                      - state: "EMPTY"
+                        passed: false
+                        name: "vicregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 7
+                      - state: "EMPTY"
+                        passed: false
+                        name: "waregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 8
+                      - state: "EMPTY"
+                        passed: false
+                        name: "medicaredvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 9
+                      - state: "EMPTY"
+                        passed: false
+                        name: "passportdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 10
+                      - state: "EMPTY"
+                        passed: false
+                        name: "visadvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 11
+                      - state: "EMPTY"
+                        passed: false
+                        name: "centrelinkdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 12
+                      - state: "EMPTY"
+                        passed: false
+                        name: "immicarddvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 13
+                      - state: "EMPTY"
+                        passed: false
+                        name: "citizenshipcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 14
+                      - state: "EMPTY"
+                        passed: false
+                        name: "birthcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 15
+                      - state: "EMPTY"
+                        passed: false
+                        name: "changeofnamecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 16
+                      - state: "EMPTY"
+                        passed: false
+                        name: "marriagecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 17
+                DVS Australian Passport:
+                  summary: DVS Australian Passport
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "H6mmuTf1"
+                    dateCreated: "2024-07-26T13:19:52.387+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "dvs"
+                    dateVerified: "2024-07-26T13:19:53.000+1000"
+                    backgroundSources:
+                      - name: "PassportDVS"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:19:52.430+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "middleNames"
+                            status: "CONFIRMED"
+                            data: "TWOPASS"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "683d444013e55364301263705f45e10ba2bf6603"
+                    sources:
+                      - state: "EMPTY"
+                        passed: false
+                        name: "actregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "EMPTY"
+                        passed: false
+                        name: "nswregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 2
+                      - state: "EMPTY"
+                        passed: false
+                        name: "ntregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 3
+                      - state: "EMPTY"
+                        passed: false
+                        name: "qldregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 4
+                      - state: "EMPTY"
+                        passed: false
+                        name: "saregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 5
+                      - state: "EMPTY"
+                        passed: false
+                        name: "tasregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 6
+                      - state: "EMPTY"
+                        passed: false
+                        name: "vicregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 7
+                      - state: "EMPTY"
+                        passed: false
+                        name: "waregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 8
+                      - state: "EMPTY"
+                        passed: false
+                        name: "medicaredvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 9
+                      - state: "EMPTY"
+                        passed: false
+                        name: "passportdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 10
+                      - state: "EMPTY"
+                        passed: false
+                        name: "visadvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 11
+                      - state: "EMPTY"
+                        passed: false
+                        name: "centrelinkdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 12
+                      - state: "EMPTY"
+                        passed: false
+                        name: "immicarddvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 13
+                      - state: "EMPTY"
+                        passed: false
+                        name: "citizenshipcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 14
+                      - state: "EMPTY"
+                        passed: false
+                        name: "birthcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 15
+                      - state: "EMPTY"
+                        passed: false
+                        name: "changeofnamecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 16
+                      - state: "EMPTY"
+                        passed: false
+                        name: "marriagecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 17
+                DVS Foreign Passport:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "19xub6KSD"
+                    dateCreated: "2024-07-26T13:25:39.033+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "dvs"
+                    dateVerified: "2024-07-26T13:25:39.127+1000"
+                    backgroundSources:
+                      - name: "VisaDVS"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:25:39.082+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "middleNames"
+                            status: "CONFIRMED"
+                            data: "TWOPASS"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "4bdebdd0727671f5ad777762da1f2d0cde839cd1"
+                    sources:
+                      - state: "EMPTY"
+                        passed: false
+                        name: "actregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "EMPTY"
+                        passed: false
+                        name: "nswregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 2
+                      - state: "EMPTY"
+                        passed: false
+                        name: "ntregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 3
+                      - state: "EMPTY"
+                        passed: false
+                        name: "qldregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 4
+                      - state: "EMPTY"
+                        passed: false
+                        name: "saregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 5
+                      - state: "EMPTY"
+                        passed: false
+                        name: "tasregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 6
+                      - state: "EMPTY"
+                        passed: false
+                        name: "vicregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 7
+                      - state: "EMPTY"
+                        passed: false
+                        name: "waregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 8
+                      - state: "EMPTY"
+                        passed: false
+                        name: "medicaredvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 9
+                      - state: "EMPTY"
+                        passed: false
+                        name: "passportdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 10
+                      - state: "EMPTY"
+                        passed: false
+                        name: "visadvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 11
+                      - state: "EMPTY"
+                        passed: false
+                        name: "centrelinkdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 12
+                      - state: "EMPTY"
+                        passed: false
+                        name: "immicarddvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 13
+                      - state: "EMPTY"
+                        passed: false
+                        name: "citizenshipcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 14
+                      - state: "EMPTY"
+                        passed: false
+                        name: "birthcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 15
+                      - state: "EMPTY"
+                        passed: false
+                        name: "changeofnamecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 16
+                      - state: "EMPTY"
+                        passed: false
+                        name: "marriagecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 17
+                DVS Medicare:
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "yTm6idvK"
+                    dateCreated: "2024-07-26T13:21:52.986+1000"
+                    overallVerificationStatus: "VERIFIED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "dvs"
+                    dateVerified: "2024-07-26T13:21:53.063+1000"
+                    backgroundSources:
+                      - name: "MedicareDVS"
+                        state: "VERIFIED"
+                        dateVerified: "2024-07-26T13:21:53.030+1000"
+                        fieldResults:
+                          - name: "givenName"
+                            status: "CONFIRMED"
+                            data: "John"
+                          - name: "surname"
+                            status: "CONFIRMED"
+                            data: "Smith"
+                          - name: "dob"
+                            status: "CONFIRMED"
+                            data: "1974-09-14"
+                          - name: "RegistrationStateReason"
+                            status: "ADDITION"
+                            data: "EMPTY"
+                    greenIDWebVerificationToken: "1ee1e6c20cefba8a4bd567dcfd47cfe37cea49e0"
+                    sources:
+                      - state: "EMPTY"
+                        passed: false
+                        name: "actregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 1
+                      - state: "EMPTY"
+                        passed: false
+                        name: "nswregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 2
+                      - state: "EMPTY"
+                        passed: false
+                        name: "ntregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 3
+                      - state: "EMPTY"
+                        passed: false
+                        name: "qldregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 4
+                      - state: "EMPTY"
+                        passed: false
+                        name: "saregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 5
+                      - state: "EMPTY"
+                        passed: false
+                        name: "tasregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 6
+                      - state: "EMPTY"
+                        passed: false
+                        name: "vicregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 7
+                      - state: "EMPTY"
+                        passed: false
+                        name: "waregodvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 8
+                      - state: "EMPTY"
+                        passed: false
+                        name: "medicaredvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 9
+                      - state: "EMPTY"
+                        passed: false
+                        name: "passportdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 10
+                      - state: "EMPTY"
+                        passed: false
+                        name: "visadvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 11
+                      - state: "EMPTY"
+                        passed: false
+                        name: "centrelinkdvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 12
+                      - state: "EMPTY"
+                        passed: false
+                        name: "immicarddvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 13
+                      - state: "EMPTY"
+                        passed: false
+                        name: "citizenshipcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 14
+                      - state: "EMPTY"
+                        passed: false
+                        name: "birthcertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 15
+                      - state: "EMPTY"
+                        passed: false
+                        name: "changeofnamecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 16
+                      - state: "EMPTY"
+                        passed: false
+                        name: "marriagecertificatedvs"
+                        available: true
+                        notRequired: true
+                        oneSourceLeft: false
+                        order: 17
+                "GBG Trust: Alert":
+                  summary: "GBG Trust: Alert"
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "Henry"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "john.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "gfqfBnim"
+                    dateCreated: "2024-07-26T13:47:18.780+1000"
+                    overallVerificationStatus: "IN_PROGRESS"
+                    overallAttemptsRemaining: 0
+                    ruleId: "AlertOnly"
+                    greenIDWebVerificationToken: "ce4e2625afc74f5438f6e94a501ca67bec7dc2f2"
+                    alertNotices:
+                      overallAlertStatus: "ALERT_RAISED"
+                      raisedAlerts:
+                        - alertRule: "Rule A1"
+                          description: "Persona checked against credit header and NSW Driver Licence DVS at least twice, in the last 90 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A2"
+                          description: "Persona used at a telco in the last 96 hrs; and two or more banks, in the last 24 hrs"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A3"
+                          description: "Persona used at a telco in the last 96 hours; and a telco in the last 1 hour; and no more than once at a bank or credit union in the last 24 hours"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule B2"
+                          description: "This persona has been linked to 3 or more email addresses, in the last 365 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A4"
+                          description: "Persona checked against credit header at least twice in the last 90 days; and checked against Driver Licence DVS no more than once, in the last year; and Persona used at least once at credit union(s), in the last 28 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule B1"
+                          description: "This persona has been linked to 2 or more phone numbers, in the last 365 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A9"
+                          description: "Persona checked against credit header no more than once, in last 90 days, and Persona used at least once at a credit reporting entity, in the last 28 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A5"
+                          description: "Persona checked against credit header and Non-NSW Driver Licence DVS at least twice, in the last 90 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A6"
+                          description: "Persona used at a telco in the last 96 hours; and no more than once at a bank or credit union in the last 24 hours; and address provided has been used by multiple Persona in the last 90 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A7"
+                          description: "Persona checked against credit header no more than once, in last 90 days, and at least once against Driver Licence DVS, in the 7 days, and at least once at a credit reporting entity, in the last 28 days"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                        - alertRule: "Rule A8"
+                          description: "Persona used at a telco in the last 96 hours; and no more than once at a bank or credit union in the last 24 hours"
+                          firstRaised: "2024-07-26T13:47:18.797+1000"
+                          multipleInstances: false
+                          alertRuleStatus: "RAISED"
+                Visa Entitlement check:
+                  summary: Visa Entitlement Check
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "onjEXPF7"
+                    dateCreated: "2024-07-29T09:41:59.925+1000"
+                    overallVerificationStatus: "PASSED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "VisaCheckOnly"
+                    backgroundSources:
+                      - name: "Visa Entitlement Check"
+                        state: "DETAILS_FOUND"
+                        dateVerified: "2024-07-29T09:41:59.977+1000"
+                        fieldResults:
+                          - name: "visaSubclass"
+                            value: "500"
+                          - name: "visaClass"
+                            value: "TU"
+                          - name: "givenNames"
+                            value: "John TWOPASS"
+                          - name: "familyName"
+                            value: "Smith"
+                          - name: "expiryDate"
+                            value: "2025-09-09"
+                          - name: "residenceStatus"
+                            value: "TEMPORARY_RESIDENT"
+                    greenIDWebVerificationToken: "db040dac14eef4675367cb66f49d4114ed53cf02"
+                PEP and Sanctions Screening:
+                  summary: PEP and Sanctions Screening
+                  value:
+                    registrationDetails:
+                      name:
+                        givenName: "John"
+                        middleNames: "TWOPASS"
+                        surname: "Smith"
+                      currentResidentialAddress:
+                        propertyName: "Farm"
+                        flatNumber: "U1"
+                        streetNumber: "1"
+                        streetName: "Main"
+                        streetType: "ST"
+                        suburb: "Melbourne"
+                        state: "VIC"
+                        postcode: "3000"
+                        country: "AU"
+                      dob:
+                        day: 14
+                        month: 9
+                        year: 1974
+                      mobilePhone: "+61404123456"
+                      email: "John.Smith@test.com"
+                      extraData:
+                        - name: "origin"
+                          value: "restfulAPIV5"
+                    verificationId: "hOYqEW16"
+                    dateCreated: "2024-07-29T09:24:25.641+1000"
+                    overallVerificationStatus: "FAILED"
+                    overallAttemptsRemaining: 0
+                    ruleId: "watchlist"
+                    backgroundSources:
+                      - name: "ExtendedPEPWatchlist"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "SEC - Litigation Releases"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "Ontario Securities Commission Cease Trade Orders"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "FBI Featured Fugitives - White Collar Crimes"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "ATO (Australia) Disqualified Trustees Register List"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "Devon & Cornwall (UK) Police Court and Convicted"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "Crimestoppers (UK) Most Wanted List"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "Ontario Securities Commission Enforcement Proceedings"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                      - name: "PEP Watchlist"
+                        state: "MATCH_REVIEW_REQUIRED"
+                        dateVerified: "2024-07-29T09:24:26.257+1000"
+                    greenIDWebVerificationToken: "f4b3ea576293b01f6041b8f73ced51497126b59e"
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}:
+    get:
+      tags:
+        - "Verification Status"
+      summary: Get the current state of an IDV journey.
+      description: Get the current state of an IDV journey.
+      operationId: getVerificationResult
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}/sources/{sourceId}:
+    put:
+      tags:
+        - "Data Source"
+      summary: Add a data source check to an existing IDV journey.
+      description: Add a data source check to an existing IDV journey.
+      operationId: setFields
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: sourceId
+          in: path
+          description: The ID of the data source which is being checked.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fields
+              properties:
+                fields:
+                  type: array
+                  maxItems: 100
+                  items:
+                    $ref: '#/components/schemas/InputField'
+                extraData:
+                  type: array
+                  maxItems: 100
+                  items:
+                    $ref: '#/components/schemas/NameValuePair'
+            examples:
+              Birth Certificate (Mary Jane McTester):
+                value:
+                  fields:
+                    - name: greenid_birthcertificatedvs_registration_number
+                      value: "123456"
+                    - name: greenid_birthcertificatedvs_registration_date
+                      value: 03/07/1979
+                    - name: greenid_birthcertificatedvs_registration_state
+                      value: VIC
+                    - name: greenid_birthcertificatedvs_givenname
+                      value: Mary
+                    - name: greenid_birthcertificatedvs_middlename
+                      value: Jane
+                    - name: greenid_birthcertificatedvs_surname
+                      value: McTester
+                    - name: greenid_birthcertificatedvs_dob
+                      value: 17/06/1979
+                    - name: greenid_birthcertificatedvs_tandc
+                      value: checked
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+              examples:
+                Birth Certificate (Mary Jane McTester):
+                  value:
+                    verificationId: def456
+                    ruleId: AEC
+                    dateCreated": 2024-07-11T22:12:22.610+1000
+                    overallVerificationStatus: IN_PROGRESS
+                    registrationDetails:
+                      name:
+                        givenName: Mary
+                        middleNames: Jane
+                        surname: McTester
+                      dob:
+                        day: 17
+                        month: 6
+                        year: 1979
+                      currentResidentialAddress:
+                        streetNumber: "17"
+                        streetName: Main
+                        streetType: St
+                        suburb: Testville
+                        state: NSW
+                        postcode: "2000"
+                        country: AU
+                    backgroundSources:
+                      name: Aec
+                      state: AUTOFAIL
+                      dateVerified: 2024-07-11T22:12:22.858+1000
+                    interactiveSources:
+                      - name: BirthCertificateDVS
+                        state: VERIFIED
+                        dateVerified: 2024-07-11T22:12:26.518+1000
+                        fieldResults:
+                          - name: givenName
+                            status: CONFIRMED
+                            value: Mary
+                          - name: middleNames
+                            status: CONFIRMED
+                            value: Jane
+                          - name: surname
+                            status: CONFIRMED
+                            value: McTester
+                          - name: dob
+                            status: CONFIRMED
+                            value: 1979-06-17
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}/status:
+    put:
+      tags:
+        - "Verification Status"
+      summary: Update the status of an IDV journey.
+      description: Update the status of an IDV journey.  This will set the state to "verified by admin".
+      operationId: setVerifiedByAdmin
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - comment
+                - description
+              properties:
+                email:
+                  type: string
+                  description: The email address of the administrator who verified the IDV journey.
+                comment:
+                  type: string
+                  description: A comment from the administrator to explain why the IDV journey was verified.
+                  maxLength: 1000
+                description:
+                  type: string
+                  description: More details about why this IDV journey was verified.
+                  maxLength: 1000
+                extraData:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/NameValuePair'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}/sources:
+    get:
+      tags:
+        - "Data Source"
+      summary: Get the data sources still available for an IDV journey.
+      description: Get the data sources still available for an IDV journey.
+      operationId: getSources
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}/sources/{sourceId}/fields:
+    get:
+      tags:
+        - "Data Source"
+      summary: Get the fields for a specific data source.
+      description: Get the fields for a specific data source.  The response contains all the details necessary to submit an attempt for the data source.
+      operationId: getFields
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: sourceId
+          in: path
+          description: The ID of the data source which is being checked.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentStatus'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/{verificationId}/webtoken:
+    get:
+      tags:
+        - Webtoken
+      summary: Generate a greenID Web token for an existing IDV journey.
+      description: Generate a greenID Web token for an existing IDV journey.
+      operationId: generateWebToken
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: verificationId
+          in: path
+          description: The unique ID of the IDV journey.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+  /greenid/v5/customers/{customerId}/verifications/webtokens/{token}:
+    delete:
+      tags:
+        - Webtoken
+      summary: Delete a greenID Web token for an IDV journey.
+      description: Delete a greenID Web token for an IDV journey.
+      operationId: expireWebToken
+      parameters:
+        - name: customerId
+          in: path
+          description: The greenID ID of the customer.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+        - name: token
+          in: path
+          description: The token to delete.
+          required: true
+          schema:
+            type: string
+            maxLength: 255
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  outcome:
+                    type: string
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+        '401':
+          description: Not authorised to use this service.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fault'
+components:
+  schemas:
+    Verification:
+      type: object
+      description: Data to start a new IDV journey.
+      required:
+        - ruleId
+        - name
+      properties:
+        verificationId:
+          type: string
+          maxLength: 255
+        ruleId:
+          type: string
+          maxLength: 255
+        name:
+          $ref: '#/components/schemas/Name'
+        email:
+          type: string
+          maxLength: 255
+        currentResidentialAddress:
+          $ref: '#/components/schemas/Address'
+        previousResidentialAddress:
+          $ref: '#/components/schemas/Address'
+        dob:
+          $ref: '#/components/schemas/DateOfBirth'
+        homePhone:
+          type: string
+          maxLength: 255
+        workPhone:
+          type: string
+          maxLength: 255
+        mobilePhone:
+          type: string
+          maxLength: 255
+        deviceIDData:
+          type: string
+        deviceId:
+          type: string
+        generateToken:
+          type: boolean
+        ipAddress:
+          type: string
+          maxLength: 100
+        extraData:
+          type: array
+          description: Additional data to be stored with the IDV journey. Check with greenID support before using this field.
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    Name:
+      type: object
+      description: A person's name.
+      required:
+        - surname
+      properties:
+        honorific:
+          type: string
+          maxLength: 255
+        givenName:
+          type: string
+          maxLength: 255
+        middleNames:
+          type: string
+          maxLength: 255
+        surname:
+          type: string
+          maxLength: 255
+    DateOfBirth:
+      type: object
+      description: A person's date of birth.
+      required:
+        - day
+        - month
+        - year
+      properties:
+        day:
+          type: integer
+          minimum: 1
+          maximum: 31
+        month:
+          type: integer
+          minimum: 1
+          maximum: 12
+        year:
+          type: integer
+          minimum: 1800
+          maximum: 2100
+    Address:
+      type: object
+      description: A person's address.
+      properties:
+        propertyName:
+          type: string
+          maxLength: 255
+        flatNumber:
+          type: string
+          maxLength: 255
+        streetNumber:
+          type: string
+          maxLength: 255
+        streetName:
+          type: string
+          maxLength: 255
+        streetType:
+          type: string
+          maxLength: 255
+        suburb:
+          type: string
+          maxLength: 255
+        townCity:
+          type: string
+          maxLength: 255
+        state:
+          type: string
+          maxLength: 255
+        postcode:
+          type: string
+          maxLength: 255
+        country:
+          type: string
+          maxLength: 255
+    NameValuePair:
+      type: object
+      description: A name-value pair.
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        value:
+          type: string
+          maxLength: 1000
+    InputField:
+      type: object
+      description: An input field for a data source, expressed as a name-value pair.
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        value:
+          type: string
+          maxLength: 255
+    CurrentStatus:
+      type: object
+      description: The current status of an IDV journey.
+      required:
+        - verificationId
+        - ruleId
+        - overallVerificationStatus
+        - registrationDetails
+      properties:
+        registrationDetails:
+          $ref: '#/components/schemas/RegistrationDetails'
+        verificationId:
+          type: string
+          description: The unique ID of the IDV journey.
+        dateCreated:
+          type: string
+          description: The date-time the IDV journey was created in greenID.
+        overallVerificationStatus:
+          type: string
+          description: The current state of the IDV journey.
+        overallVerificationStatusReason:
+          type: string
+          description: An indicator of the reason why the IDV journey is in its current state.
+        overallAttemptsRemaining:
+          type: integer
+          description: The number of data source attempts remaining for this IDV journey.  May be zero if the journey is complete, or the attempts have been exhausted.
+        ruleId:
+          type: string
+          description: The greenID verification rule which applies to this IDV journey.
+        mode:
+          type: string
+          description: |
+            Which verification mode that was used.  The mode is null, except in the following cases:
+              - “POSTOFFICE” – the person was verified by completing a Post Office form and visiting a branch of Australia Post, where their identity documents were manually inspected.
+              - “ASSISTED” – the person was verified by an administrative user.
+              - “EXTERNAL” – the person was verified outside of greenID, and the results have been loaded in to greenID.
+        dateVerified:
+          type: string
+          description: The date this person became verified (null if they have not yet been verified).
+        backgroundSources:
+          type: array
+          description: The list of data sources which were checked when the IDV journey was created.
+          items:
+            $ref: '#/components/schemas/DataSourceCheckResult'
+        interactiveSources:
+          type: array
+          description: The list of data sources which have been checked interactively during the IDV journey.
+          items:
+            $ref: '#/components/schemas/DataSourceCheckResult'
+        greenIDWebVerificationToken:
+          type: string
+          description: A token which can be used to verify a person's identity using greenID Web.
+        alertNotices:
+          $ref: '#/components/schemas/GBGTrustAlertNotices'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+        sourceFields:
+          $ref: '#/components/schemas/SourceFields'
+        mostRecentCheckResult:
+          $ref: '#/components/schemas/MostRecentCheckResult'
+    RegistrationDetails:
+      type: object
+      description: The personal details used to create an IDV journey.
+      required:
+        - name
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        currentResidentialAddress:
+          $ref: '#/components/schemas/Address'
+        previousResidentialAddress:
+          $ref: '#/components/schemas/Address'
+        dob:
+          $ref: '#/components/schemas/DateOfBirth'
+        homePhone:
+          type: string
+        workPhone:
+          type: string
+        mobilePhone:
+          type: string
+        email:
+          type: string
+        extraData:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    GBGTrustAlertNotices:
+      type: object
+      description: Details of any GBG Trust Alerts raised during an IDV journey.
+      required:
+        - overallAlertStatus
+      properties:
+        overallAlertStatus:
+          type: string
+          description: The overall state of the GBG Trust Alert checks for this IDV journey.
+        score:
+          type: string
+          description: A GBG Trust Alert score, reserved for future use.
+        raisedAlerts:
+          type: array
+          description: The list of GBG Trust Alert rules which were triggered during this IDV journey.
+          items:
+            $ref: '#/components/schemas/RaisedAlert'
+        extraData:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    RaisedAlert:
+      type: object
+      description: Details of a specific GBG Trust Alert rule which was triggered.
+      required:
+        - alertRule
+        - description
+        - firstRaised
+        - multipleInstances
+        - alertRuleStatus
+      properties:
+        alertRule:
+          type: string
+          description: The name of the GBG Trust Alert rule which was triggered.
+        description:
+          type: string
+          description: A description of the GBG Trust Alert rule which was triggered.
+        firstRaised:
+          type: string
+          description: The date-time this rule was first triggered.
+        multipleInstances:
+          type: boolean
+          description: Whether this rule was triggered multiple times.
+        alertRuleStatus:
+          type: string
+          description: The current state of this GBG Trust Alert rule.  If this object exists, the status will be "RAISED"
+        extraData:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    Source:
+      type: object
+      description: Details of a data source which can be used as part of this IDV journey.
+      required:
+        - name
+        - state
+        - passed
+        - available
+        - oneSourceLeft
+        - order
+        - notRequired
+      properties:
+        state:
+          type: string
+          description: The current state of the source.
+        passed:
+          type: boolean
+          description: Whether this source has been passed, i.e. the check is in one of the verified states.
+        name:
+          type: string
+          description: The name of the data source.  This name should be reused when submitting the data source check.
+        available:
+          type: boolean
+          description: Whether this source is available for use in the IDV journey
+        notRequired:
+          type: boolean
+          description: Whether this source can help a person become fully verified.  If true, then there is no point using this data source because it cannot help complete the IDV journey.
+        oneSourceLeft:
+          type: boolean
+          description: Whether completing this data source will make the person fully verified.  These sources should be attempted first because they will complete the IDV journey in the fewest steps.
+        order:
+          type: integer
+          description: The order in which the source would be displayed if it was being displayed by greenID Web. Sources which are more likely to be useful should be displayed first.
+        attributes:
+          type: array
+          description: The HTML attributes which should be applied to any HTML input control collecting input from a person.  For example, the HTML attributed "class='required'" will be specified in this list for any field which is required.
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    DataSourceCheckResult:
+      type: object
+      description: The outcome of a data source check.
+      required:
+        - name
+        - state
+      properties:
+        name:
+          type: string
+          description: The name of the check. For example, if a check against the Electoral Roll was attempted, then the name would be “AEC”. As each customer will accept a different set of checks, customers should refer to their individual rules document for the list of names that they can expect.
+        state:
+          type: string
+          description: The state of the individual check.
+        stateReason:
+          type: array
+          description: A list of reasons why the source is in the state it is.
+          items:
+            $ref: '#/components/schemas/StateReason'
+        lockOutReason:
+          type: array
+          description: A list of reasons why the source is locked out.
+          items:
+            $ref: '#/components/schemas/LockOutReason'
+        mode:
+          type: string
+          description: |
+            Which verification mode that was used.  The mode is null, except in the following cases:
+              - “POSTOFFICE” – the person was verified by completing a Post Office form and visiting a branch of Australia Post, where their identity documents were manually inspected.
+              - “ASSISTED” – the person was verified by an administrative user.
+              - “EXTERNAL” – the person was verified outside of greenID, and the results have been loaded in to greenID.
+        dateCreated:
+          type: string
+          description: The date-time this source was last checked.
+        dateVerified:
+          type: string
+          description: The date-time this source was verified.  If the source is not verified, this field will be null.
+        fieldResults:
+          type: array
+          description: The results of individual fields checked by this data source.
+          items:
+            $ref: '#/components/schemas/FieldResult'
+        postOfficeData:
+          $ref: '#/components/schemas/PostOfficeData'
+        extraData:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+        dataSourceCheckResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSourceCheckResult'
+        documentType:
+          type: string
+          description: The type of the document which was scanned as part of a document check.  For example "DRIVERS_LICENCE".
+        documentRegion:
+          type: string
+          description: The ISO alpha2 code of the region where the document was issued.  For example "AU".
+        documentSubRegion:
+          type: string
+          description: An optional sub-region code for the document.  For example "NSW".
+        faceMatchScore:
+          type: string
+          description: The score from comparing the face in the document with the face in the selfie.
+        geolocationResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/Geolocation'
+    StateReason:
+      type: string
+      description: A code indicating why a state was reached.
+    LockOutReason:
+      type: string
+      description: A code indicating why a lockout occurred.
+    FieldResult:
+      type: object
+      description: The outcome of a specific field checked by a data source.
+      required:
+        - name
+        - status
+      properties:
+        name:
+          type: string
+          description: The name of the field. The possible name will depend on the source used, which depends on the individual customer setup, and new sources, with potentially new fields are constantly being added.
+        status:
+          type: string
+          description: |
+            The current state of the field, one of:
+              - CONFIRMED
+              - CHANGED
+              - ADDITION
+              - NO_MATCH
+              - MISSING
+        data:
+          type: string
+          description: Additional data about the field, generally associated with the status "ADDITION", meaning the field is additional to the data originally supplied for the data source check, e.g. is could be a reason code or a transaction ID, etc.
+        addressType:
+          type: string
+          description: Either "currentAddress" or "previousAddress".
+        masterRecordValue:
+          type: string
+          description: If the status of this field is "CHANGED", then this field contains the corresponding value from the data supplied at the time the IDV journey was created.
+        changedValue:
+          type: string
+          description: If the status of this field is "CHANGED", then this field contains the new value which was supplied for the data source check.
+        extractedValue:
+          type: string
+          description: If the status of this field is "CHANGED", then this field contains the new value which was extracted from the document scanned (only for document scan checks).
+        value:
+          type: string
+          description: The value of the field.
+        extraData:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    Geolocation:
+      type: object
+      description: Geolocation details.
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: string
+          description: The latitude of the geolocation.
+        longitude:
+          type: string
+          description: The longitude of the geolocation.
+        address:
+          $ref: '#/components/schemas/Address'
+        source:
+          type: string
+          description: Not currently used.
+    PostOfficeData:
+      type: object
+      description: Results from an Aus Post OTC verification.
+      properties:
+        poFileName:
+          type: string
+          description: The name of the actual file read from Australia Post.
+        customerId:
+          type: string
+        documents:
+          type: string
+          description: Human readable string that is a comma separated list of all the names of the documents used to verify this user.
+        header:
+          $ref: '#/components/schemas/PostOfficeDetailRecordHeader'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostOfficeDocumentRecord'
+    PostOfficeDetailRecordHeader:
+      type: object
+      description: Header details for an Aus Post OTC verification.
+      properties:
+        recordType:
+          type: string
+          description: Fixed by Australia Post as "5".
+        recordNo:
+          type: string
+          description: Fixed by Australia Post as "1".
+        totalNumberOfIdDocuments:
+          type: string
+          description: Number of documents used to verify this user.
+        idWizardRefNo:
+          type: string
+        date:
+          type: string
+          description: ddmmyy (NOTE - system generated date with no slashes)
+        postOfficeName:
+          type: string
+          description: Presumably the name of the Post Office the form was checked at.
+        uniqueReferenceNo:
+          type: string
+          description: wwwwwwttnnnnn, first 6 digits are AP Work Centre Code.
+        typeCode:
+          type: string
+        channelId:
+          type: string
+          description: 0 = default.
+        referenceNo:
+          type: string
+          description: The reference number used to identify this user. Most often this will be the userId. It must be 16 characters or less.
+        surname:
+          type: string
+          description: 20 characters of the surname that was on the form that was checked.
+        givenName:
+          type: string
+          description: 16 characters of the given name that was on the form that was checked.
+        paymentMethod:
+          type: string
+          description: 00 = Cash/EFTPOS/Direct Debit, 01 - 09  = number of Cheques, 11 = VISA, 12 = MasterCard. Note - This may differ per contract, but in general the above applies.
+        amount:
+          type: string
+          description: Unsigned amount in cents.
+        filler:
+          type: string
+          description: Often there will be filler, it serves no purpose and should be ignored.
+        formVersion:
+          type: string
+          description: A-Z.
+        dateOfBirth:
+          type: string
+          description: ddmmyyyy represents the date of birth on the form that was checked.
+        phoneNo:
+          type: string
+          description: Phone number as entered on the form that was checked.
+    PostOfficeDocumentRecord:
+      type: object
+      description: Details of one or more documents from an Aus Post OTC verification.
+      properties:
+        recordType:
+          type: string
+        recordNo:
+          type: string
+          description: Incrementing number starting at 1.
+        referenceNo:
+          type: string
+        idDocumentType:
+          type: string
+          description: Code number representing the document type. The lookup for the name is done automatically and stored in the documentName member.
+        nameMatchesForm:
+          type: string
+          description: Y = Yes, X = not applicable.
+        dateOfBirthMatchesForm:
+          type: string
+          description: Y = Yes, X = not applicable.
+        residentialAddressMatchesForm:
+          type: string
+          description: Y = Yes, X = not applicable.
+        countryOfIssue:
+          type: string
+          description: Name of country from the document if applicable.
+        utilityAccountIssuer:
+          type: string
+          description: If specifically a utility, then the name.
+        documentExpiryDate:
+          type: string
+          description: dd/mm/yyyy; spaces if not applicable NOTE - manually entered date with slashes.
+        documentIssueDate:
+          type: string
+        utilityAccountType:
+          type: string
+          description: 01 = electricity, 02 = gas, 03 = water, 04 = telephone.
+        idWizardRefNo:
+          type: string
+        filler:
+          type: string
+          description: Often there will be filler, it serves no purpose and should be ignored.
+        amount:
+          type: string
+          description: Always zero.
+        photoMatch:
+          type: string
+          description: Y = Yes, X = not applicable.
+        issuedBy:
+          type: string
+          description: This may be present instead of country of Issue, stateOrTerritoryOfIssue, utilityAccountIssuer and utilityAccountType. It may selectively hold this information in a less rigid format.
+        comments:
+          type: string
+        documentName:
+          type: string
+          description: This is an automatic lookup to convert the idDocumentType member into a human readable document name.
+        stateOrTerritoryOfIssue:
+          type: string
+          description: ACT, QLD, NSW, NT, SA, TAS, VIC or WA.
+        documentNumber:
+          type: string
+          description: Alphanumeric, e.g., passport number.
+    SourceFields:
+      type: object
+      description: Details about input fields required for a particular data source.
+      properties:
+        rawData:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceField'
+    SourceField:
+      type: object
+      description: Details about an input field required for a particular data source.
+      properties:
+        type:
+          type: string
+          description: The type of HTML input that is required (at least strongly suggested) for collecting the data for this field from the person.  For example, a value of “text” would indicate a simple HTML text input is appropriate.
+        name:
+          type: string
+          description: The name of the HTML input that would collect data for this field from the person.  The name also indicates what the data field is, for example, the value “aec_givenname” indicates the field holds the given name for the AEC data source.
+        value:
+          type: string
+          description: Any pre-existing value for the HTML field.
+        label:
+          type: string
+          description: The label that should be displayed to the person when they are entering data for this field.
+        selectItems:
+          type: array
+          description: A list of item names and values for a select item.
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+        attributes:
+          type: array
+          description: A list of the names and values of any HTML attributes that this field has.  For example, the attribute class=”required” would be specified in this list for any field which is required.
+          items:
+            $ref: '#/components/schemas/NameValuePair'
+    MostRecentCheckResult:
+      type: object
+      description: Summary details about the most recent data source check carried out in this IDV journey.
+      properties:
+        stillWorking:
+          type: boolean
+          description: True if the data source check is still in progress.
+        state:
+          type: string
+          description: Current state of the data source check.
+    Fault:
+      type: object
+      description: A problem was encountered processing the request.
+      required:
+        - faultCode
+        - faultString
+        - code
+        - details
+      properties:
+        faultCode:
+          type: string
+          format: string
+          description: An indicator of where the fault arose, generally "env:Server".
+        faultString:
+          type: string
+          description: A short human-readable description of the fault, e.g. "Invalid input field - suburb, state, postcode"
+        code:
+          type: string
+          description: |
+            A code indicating the type of fault, e.g. "FieldValidationFault".  One of:
+              - FieldValidationFault - One or more input fields failed validation.
+              - InvalidIPAddressFault - The IP address of the client is not permitted to call the web service.
+              - InvalidPasswordFault - The customer ID and password could not be matched or the accountId was not recognised.
+              - InvalidRuleIdFault - The ruleId element was not recognised.
+              - InvalidSourceIdFault - The sourceId element was not recognised.
+              - InvalidTokenFault - The verificationToken (also referred to as a userToken) supplied was not recognised.
+              - SystemFault - There was an unexpected error during the web service call. This is an internal error for greenID.
+              - TokenTimeoutFault - The verificationToken (userToken) supplied has expired.
+              - VerificationIdNotFoundFault - One of the API methods other than registerVerification was called with a verificationId that was not recognised.
+              - VerificationFault - There was an unexpected error during the verification process.
+        details:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
