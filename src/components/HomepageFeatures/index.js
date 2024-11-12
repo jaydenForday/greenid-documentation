@@ -1,53 +1,66 @@
-import clsx from 'clsx';
-import Heading from '@theme/Heading';
-import styles from './styles.module.css';
+import clsx from "clsx";
+import Heading from "@theme/Heading";
+import styles from "./styles.module.css";
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: "Welcome to greenID Documentation",
+    Svg: require("@site/static/img/undraw_file_searching_re_3evy.svg").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Here you will find everything you need to integrate greenID into your
+        platform, as well as instruction for users of greenID after
+        implementation.
       </>
     ),
+    size: { width: '255px', height: '255px' },
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: "Comprehensive guidance",
+    Svg: require("@site/static/img/undraw_navigator_a479.svg").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Find instructions on embedding greenID using API or SDK options.
+        Verification results can be retrieved via those channels and/or via a
+        web-based administrator interface.
       </>
     ),
+    size: { width: '378px', height: '223px'},
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: "Not a greenID customer?",
+    Img: require("@site/static/img/GBG_home_page_image.png").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        If you are interested in using greenID in your organisation, visit{" "}
+        <a
+          href="https://www.gbg-greenid.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          www.gbg-greenid.com
+        </a>
       </>
     ),
+    size: { width: '281px', height: '281px' },
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, Img, title, description, size }) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+    <div className={clsx("col col--4")}>
+      <div className={clsx("text--center", styles.featureImageContainer)}>
+        {Svg && <Svg style={size} role="img" />}
+        {Img && <img src={Img} style={size} alt={title} />}
       </div>
-      <div className="text--center padding-horiz--md">
+      <div className={clsx("text--center padding-horiz--md", styles.featureContent)}>
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
       </div>
     </div>
   );
 }
+
 
 export default function HomepageFeatures() {
   return (
@@ -62,3 +75,4 @@ export default function HomepageFeatures() {
     </section>
   );
 }
+

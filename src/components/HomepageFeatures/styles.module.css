@@ -5,7 +5,26 @@
   width: 100%;
 }
 
+.featureImageContainer {
+  height: 300px; /* Adjust this value as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featureContent {
+  min-height: 150px; /* Adjust this value as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.featureImg {
+  max-width: 200px;
+  height: 200px;
 }
