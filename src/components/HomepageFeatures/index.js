@@ -13,7 +13,6 @@ const FeatureList = [
         implementation.
       </>
     ),
-    size: { width: '255px', height: '255px' },
   },
   {
     title: "Comprehensive guidance",
@@ -25,7 +24,6 @@ const FeatureList = [
         web-based administrator interface.
       </>
     ),
-    size: { width: '378px', height: '223px'},
   },
   {
     title: "Not a greenID customer?",
@@ -42,16 +40,15 @@ const FeatureList = [
         </a>
       </>
     ),
-    size: { width: '281px', height: '281px' },
   },
 ];
 
-function Feature({ Svg, Img, title, description, size }) {
+function Feature({ Svg, Img, title, description }) {
   return (
     <div className={clsx("col col--4")}>
       <div className={clsx("text--center", styles.featureImageContainer)}>
-        {Svg && <Svg style={size} role="img" />}
-        {Img && <img src={Img} style={size} alt={title} />}
+        {Svg && <Svg className={styles.featureSvg} role="img" />}
+        {Img && <img src={Img} className={styles.featureImg} alt={title} />}
       </div>
       <div className={clsx("text--center padding-horiz--md", styles.featureContent)}>
         <Heading as="h3">{title}</Heading>
@@ -60,6 +57,8 @@ function Feature({ Svg, Img, title, description, size }) {
     </div>
   );
 }
+
+
 
 
 export default function HomepageFeatures() {

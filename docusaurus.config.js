@@ -10,8 +10,8 @@ import {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'GreenID Docs',
-  tagline: 'Your tagline here',
+  title: 'greenID Documentation',
+  tagline: 'For users and developers',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
