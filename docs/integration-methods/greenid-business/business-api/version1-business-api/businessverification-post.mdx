@@ -1,6 +1,7 @@
 ---
 id: businessverification-post
 title: Business API businessVerification - POST
+sidebar_position: 3
 ---
 
 # Business API: businessVerification - POST
@@ -82,19 +83,19 @@ The output of a successful call to the endpoint will be a single verification ID
 
 In addition to the types of standard exceptions thrown by the API (as documented on the [main API page](https://vixverify.atlassian.net/wiki/spaces/GREEN/pages/388300913/Version+1+greenID+Business+API)), the following exceptions are specific to the POST call:
 
-| **HTTP Status Code** | **Error **  | **Error Message**                                                               | **Conditions**                                                                                        |
-| -------------------- | ----------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 400                  | Bad Request | Manual creation requires a business structure to be passed in                   | The "manual" field is set to true, but no business structure has been passed in                       |
-| 400                  | Bad Request | Unable to perform business lookup for country code                              | A country code was provided for which business register lookups are not supported on your account     |
-| 400                  | Bad Request | Data source business lookups must include a business number                     | A business register lookup was requested but no business number to search for was input               |
-| 400                  | Bad Request | Business number parameter must be a numeric value                               | The input business number contains non-numeric characters                                             |
-| 400                  | Bad Request | Business number parameter must be of length ...                                 | The business number does not correspond to the expected length for the specified business number type |
-| 400                  | Bad Request | businessNumberType cannot be empty                                              | A business register lookup was requested but an empty string was input for the business number type   |
-| 400                  | Bad Request | Input business type: \<businessType> not found for country code: \<countryCode> | The given businessType is not supported for the given country code                                    |
-| 400                  | Bad Request | Missing required business type parameter                                        | For a manual creation the required business type was not input                                        |
-| 400                  | Bad Request | Missing required business name parameter                                        | For a manual creation the required business name was not input                                        |
-| 400                  | Bad Request | Missing country code parameter                                                  | No countryCode (manual creation) or dataSourceCountry (lookup) was provided                           |
-| 400                  | Bad Request | Invalid country code parameter                                                  | The input country code does not match any of the ISO country codes known about by the system          |
-| 400                  | Bad Request | countryCode cannot be empty                                                     | An empty string was input for the country code                                                        |
-| 400                  | Bad Request | No matching customer configuration for input countryCode                        | This customer does not have the input country code enabled on their account                           |
-| 400                  | Bad Request | Only one business number is supported for manual creation of a business         | More than one business number was inpu                                                                |
+| **HTTP Status Code** | \*\*Error \*\* | **Error Message**                                                               | **Conditions**                                                                                        |
+| -------------------- | -------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 400                  | Bad Request    | Manual creation requires a business structure to be passed in                   | The "manual" field is set to true, but no business structure has been passed in                       |
+| 400                  | Bad Request    | Unable to perform business lookup for country code                              | A country code was provided for which business register lookups are not supported on your account     |
+| 400                  | Bad Request    | Data source business lookups must include a business number                     | A business register lookup was requested but no business number to search for was input               |
+| 400                  | Bad Request    | Business number parameter must be a numeric value                               | The input business number contains non-numeric characters                                             |
+| 400                  | Bad Request    | Business number parameter must be of length ...                                 | The business number does not correspond to the expected length for the specified business number type |
+| 400                  | Bad Request    | businessNumberType cannot be empty                                              | A business register lookup was requested but an empty string was input for the business number type   |
+| 400                  | Bad Request    | Input business type: \<businessType> not found for country code: \<countryCode> | The given businessType is not supported for the given country code                                    |
+| 400                  | Bad Request    | Missing required business type parameter                                        | For a manual creation the required business type was not input                                        |
+| 400                  | Bad Request    | Missing required business name parameter                                        | For a manual creation the required business name was not input                                        |
+| 400                  | Bad Request    | Missing country code parameter                                                  | No countryCode (manual creation) or dataSourceCountry (lookup) was provided                           |
+| 400                  | Bad Request    | Invalid country code parameter                                                  | The input country code does not match any of the ISO country codes known about by the system          |
+| 400                  | Bad Request    | countryCode cannot be empty                                                     | An empty string was input for the country code                                                        |
+| 400                  | Bad Request    | No matching customer configuration for input countryCode                        | This customer does not have the input country code enabled on their account                           |
+| 400                  | Bad Request    | Only one business number is supported for manual creation of a business         | More than one business number was inpu                                                                |
