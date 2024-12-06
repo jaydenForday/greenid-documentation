@@ -1,6 +1,7 @@
 ---
 id: redirecting
 title: Redirecting to greenID screens
+sidebar_position: 3
 ---
 
 # Redirecting to greenID screens
@@ -40,10 +41,10 @@ The token can be configured on a per-client basis. For example, it can have a c
 
 ### Parameters
 
-| **Name  **   | **Type  **                        | **Required?  ** | **Description  **                                                                                                                                                                                                                       | **Contract  **                                            |
-| ------------ | --------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| customerId   | <p>String  </p><p>255 Chars  </p> | Yes             | This parameter is greenID's identifier for the client application. The value is supplied by greenID, and must be included with each registration request.                                                                               | Must be a valid identifier issued by greenID.             |
-| userId       | <p>String  </p><p>255 Chars  </p> | Yes             | This parameter is an identifier that the client uses for the individual being verified. greenID does not use it as an identifier, but in order to easily locate individual's for a particular client application, the userId is used.   | <p>Must match an already registered userId.  </p><p> </p> |
+| \*\*Name  \*\* | \*\*Type  \*\*                    | \*\*Required?  \*\* | \*\*Description  \*\*                                                                                                                                                                                                                   | \*\*Contract  \*\*                                        |
+| -------------- | --------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| customerId     | <p>String  </p><p>255 Chars  </p> | Yes                 | This parameter is greenID's identifier for the client application. The value is supplied by greenID, and must be included with each registration request.                                                                               | Must be a valid identifier issued by greenID.             |
+| userId         | <p>String  </p><p>255 Chars  </p> | Yes                 | This parameter is an identifier that the client uses for the individual being verified. greenID does not use it as an identifier, but in order to easily locate individual's for a particular client application, the userId is used.   | <p>Must match an already registered userId.  </p><p> </p> |
 
 ### Return Value
 
@@ -137,21 +138,21 @@ actrego\_number - the ACT drivers licence number (non-DVS)
 
 **qldrego\_number** - the QLD drivers licence number (non-DVS)
 
-**actregodvs\_licenceNumber **- the ACT drivers licence number (DVS)
+\*\*actregodvs\_licenceNumber \*\*- the ACT drivers licence number (DVS)
 
-**waregodvs\_licenceNumber **- the WA drivers licence number (DVS)
+\*\*waregodvs\_licenceNumber \*\*- the WA drivers licence number (DVS)
 
-**saregodvs\_licenceNumber **- the SA drivers licence number (DVS)
+\*\*saregodvs\_licenceNumber \*\*- the SA drivers licence number (DVS)
 
-**vicregodvs\_licenceNumber **- the VIC drivers licence number (DVS)
+\*\*vicregodvs\_licenceNumber \*\*- the VIC drivers licence number (DVS)
 
-**nswregodvs\_licenceNumber **- the NSW drivers licence number (DVS)
+\*\*nswregodvs\_licenceNumber \*\*- the NSW drivers licence number (DVS)
 
-**qldregodvs\_licenceNumber **- the QLD drivers licence number (DVS)
+\*\*qldregodvs\_licenceNumber \*\*- the QLD drivers licence number (DVS)
 
-**ntregodvs\_licenceNumber **- the NT drivers licence number (DVS)
+\*\*ntregodvs\_licenceNumber \*\*- the NT drivers licence number (DVS)
 
-**tasregodvs\_licenceNumber **- the TAS drivers licence number (DVS)
+\*\*tasregodvs\_licenceNumber \*\*- the TAS drivers licence number (DVS)
 
 visadvs\_**passportNumber** - the passport number for non-australian passports (DVS)
 
@@ -167,11 +168,11 @@ visa\_number - the passport number for non-australian passports (non-DVS)
 
 #### **New Zealand**{#RedirectingtogreenIDscreens-NewZealand}
 
-**nztadriverslicence\_number **- the NZ Driver Licence number
+\*\*nztadriverslicence\_number \*\*- the NZ Driver Licence number
 
-**nztadriverslicence\_versionNumber **- the NZ Driver Licence version number
+\*\*nztadriverslicence\_versionNumber \*\*- the NZ Driver Licence version number
 
-**nzpassport\_number **- the NZ Passport number
+\*\*nzpassport\_number \*\*- the NZ Passport number
 
 ### About these URLs{#RedirectingtogreenIDscreens-AbouttheseURLs}
 

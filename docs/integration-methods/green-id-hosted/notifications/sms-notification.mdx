@@ -1,6 +1,7 @@
 ---
 id: sms-notification
 title: SMS Notification
+sidebar_position: 1
 ---
 
 # SMS Notification
@@ -13,11 +14,11 @@ This notification service has been specifically introduced for customers using t
 
 Once a phone number has been successfully submitted to greenID for sending an SMS,  greenID will send an API response to the customer which will contain a 'submitted' status (among other output fields). This service enables customers to receive a notification to a specific URL once we are informed by our SMS provider of the final delivery status of the SMS i.e. Delivered, Undelivered or Failed. Below is the explanation of the SMS statuses:
 
-| **Status ** | **Explanation**                                                                                                                                                                                                          |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Delivered   | SMS Service Provider has received confirmation of message delivery from the upstream carrier, and, where available, the destination handset.                                                                             |
-| Undelivered | SMS Service Provider received a delivery receipt indicating that the message was not delivered. This can happen for several reasons including carrier content filtering and the availability of the destination handset. |
-| Failed      | The message could not be sent.                                                                                                                                                                                           |
+| \*\*Status \*\* | **Explanation**                                                                                                                                                                                                          |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Delivered       | SMS Service Provider has received confirmation of message delivery from the upstream carrier, and, where available, the destination handset.                                                                             |
+| Undelivered     | SMS Service Provider received a delivery receipt indicating that the message was not delivered. This can happen for several reasons including carrier content filtering and the availability of the destination handset. |
+| Failed          | The message could not be sent.                                                                                                                                                                                           |
 
 The SMS notification will be an HTTP POST to the configured URL. The POST HTTP request will contain form data with the following fields:
 
