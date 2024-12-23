@@ -58,6 +58,33 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            id: "api-core_v5",
+            spec: 'static/core_v5.yaml',
+            route: 'docs/api-reference/core_v5',
+          },
+          {
+            id: "api-hosted_web",
+            spec: 'static/hosted_web.yaml',
+            route: 'docs/api-reference/hosted_web',
+          }
+        ],
+        theme: {
+          options: {
+            hideDownloadButton: true,
+            hideLogo: true,
+            disableSearch: true,
+            hideLoading: false,
+            hideSingleRequestSampleTab: false,
+            layout: 'side-by-side',
+          },
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -87,9 +114,18 @@ const config = {
             activeBaseRegex: `/integration-methods/` 
           },
           {
-            to: 'docs/api-reference/core-api-details-examples',
             label: 'API Reference',
-            activeBaseRegex: `/api-reference/`
+            activeBaseRegex: `/api-reference/`,
+            items: [
+              {
+                label: "Core V5",
+                to:  "docs/api-reference/core_v5"
+              },
+              {
+                label: "Hosted Web",
+                to:  "docs/api-reference/hosted_web"
+              },
+            ]
           },
           {
             to: 'docs/updates-and-releases/latest-news-and-updates',
