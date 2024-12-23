@@ -58,6 +58,48 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            id: "api-core_v5",
+            spec: 'static/core_v5.yaml',
+            route: 'docs/api-reference/core_v5',
+          },
+          {
+            id: "api-hosted_web",
+            spec: 'static/hosted_web.yaml',
+            route: 'docs/api-reference/hosted_web',
+          },
+          {
+            id: "api-documents_images",
+            spec: 'static/documents_images.yaml',
+            route: 'docs/api-reference/documents_images',
+          },
+          {
+            id: "api-watchlist_results",
+            spec: 'static/watchlist_results.yaml',
+            route: 'docs/api-reference/watchlist_results',
+          },
+          {
+            id: "api-get_results",
+            spec: 'static/get_results.yaml',
+            route: 'docs/api-reference/get_results',
+          }
+        ],
+        theme: {
+          options: {
+            hideDownloadButton: true,
+            hideLogo: true,
+            disableSearch: true,
+            hideLoading: false,
+            hideSingleRequestSampleTab: false,
+            layout: 'side-by-side',
+          },
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -87,9 +129,30 @@ const config = {
             activeBaseRegex: `/integration-methods/` 
           },
           {
-            to: 'docs/api-reference/core-api-details-examples',
             label: 'API Reference',
-            activeBaseRegex: `/api-reference/`
+            activeBaseRegex: `/api-reference/`,
+            items: [
+              {
+                label: "Core V5",
+                to:  "docs/api-reference/core_v5"
+              },
+              {
+                label: "Hosted Web",
+                to:  "docs/api-reference/hosted_web"
+              },
+              {
+                label: "Documents & Images",
+                to:  "docs/api-reference/documents_images"
+              },
+              {
+                label: "Watchlist Results (Comprehensive Watchlist)",
+                to:  "docs/api-reference/watchlist_results"
+              },
+              {
+                label: "Verification Result",
+                to:  "docs/api-reference/get_results"
+              },
+            ]
           },
           {
             to: 'docs/updates-and-releases/latest-news-and-updates',
