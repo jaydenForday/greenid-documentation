@@ -71,6 +71,21 @@ const config = {
             id: "api-hosted_web",
             spec: 'static/hosted_web.yaml',
             route: 'docs/api-reference/hosted_web',
+          },
+          {
+            id: "api-documents_images",
+            spec: 'static/documents_images.yaml',
+            route: 'docs/api-reference/documents_images',
+          },
+          {
+            id: "api-watchlist_results",
+            spec: 'static/watchlist_results.yaml',
+            route: 'docs/api-reference/watchlist_results',
+          },
+          {
+            id: "api-get_results",
+            spec: 'static/get_results.yaml',
+            route: 'docs/api-reference/get_results',
           }
         ],
         theme: {
@@ -124,6 +139,18 @@ const config = {
               {
                 label: "Hosted Web",
                 to:  "docs/api-reference/hosted_web"
+              },
+              {
+                label: "Documents & Images",
+                to:  "docs/api-reference/documents_images"
+              },
+              {
+                label: "Watchlist Results (Comprehensive Watchlist)",
+                to:  "docs/api-reference/watchlist_results"
+              },
+              {
+                label: "Verification Result",
+                to:  "docs/api-reference/get_results"
               },
             ]
           },
