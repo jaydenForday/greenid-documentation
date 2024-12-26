@@ -22,8 +22,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-org-name', // Usually your GitHub org/user name.
-  projectName: 'greenid-docs', // Usually your repo name.
+  organizationName: 'GBG', // Usually your GitHub org/user name.
+  projectName: 'greenid-documentation', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -41,18 +41,6 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/your-org-name/greenid-docs/tree/main/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/your-org-name/greenid-docs/tree/main/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -167,7 +155,7 @@ const config = {
             activeBaseRegex: `/customer-support-faqs/`
           },
           {
-            href: 'https://github.com/your-org-name/greenid-docs',
+            href: 'https://github.com/jaydenForday/greenid-documentation',
             label: 'GitHub',
             position: 'right' 
           }
