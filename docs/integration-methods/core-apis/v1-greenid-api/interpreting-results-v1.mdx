@@ -1,6 +1,7 @@
 ---
 id: interpreting-results=v1
 title: Interpreting Results V1
+sidebar_position: 5
 ---
 
 # Interpreting Results V1
@@ -66,8 +67,7 @@ The HTML fragment is the result of the most basic strategy for taking the input 
 
 *Note: this section only relates to versions of the rawData HTML prior to April 2016 and remains here to help customers using these versions.*
 
-Some field labels returned in the rawData HTML include tooltips to provide additional explanatory information to the user about the field requirements. The tooltip wording is included in two ways in the returned HTML (see nswregodvs\_number\_tooltip in the sample above). It is included in the title attribute of the .greenid-helpicon tooltip element because this is the way that many popular tooltip javascript libraries work (e.g. Bootstrap, jQuery UI, Tooltipster).  However, the titleattribute is usually not accessible to screen reader users (e.g. those with visual disabilities), so the tooltip content is included a second time for the benefit of screen readers in the .greenid-sr-only element.  \
-
+Some field labels returned in the rawData HTML include tooltips to provide additional explanatory information to the user about the field requirements. The tooltip wording is included in two ways in the returned HTML (see nswregodvs\_number\_tooltip in the sample above). It is included in the title attribute of the .greenid-helpicon tooltip element because this is the way that many popular tooltip javascript libraries work (e.g. Bootstrap, jQuery UI, Tooltipster).  However, the titleattribute is usually not accessible to screen reader users (e.g. those with visual disabilities), so the tooltip content is included a second time for the benefit of screen readers in the .greenid-sr-only element.  \\
 
 If you use the rawData HTML provided, you will need to add the following to your CSS file to ensure that this screenreader-only content is hidden from the screen but available to screen readers:
 

@@ -1,6 +1,7 @@
 ---
 id: auditing-api-v2
 title: Auditing API V2
+sidebar_position: 9
 ---
 
 # Auditing API V2
@@ -50,8 +51,6 @@ Additionally, filters can be added to the audit log request. 
 
 | <p>`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"` `xmlns:ser="http://services.registrations.edentiti.com/">`</p><p>`   <soapenv:Header/>`</p><p>`   <soapenv:Body>`</p><p>`      <ser:retrieveAuditLogs>`</p><p>`         <accountId>account_id</accountId>`</p><p>`         <password>password</password>`</p><p>`         <verificationId>pUz9rXAc</verificationId>   `</p><p>`         <filter>datasourceattempt</filter>`</p><p>`     </ser:retrieveAuditLogs>`</p><p>`   </soapenv:Body>`</p><p>`</soapenv:Envelope>`</p> |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
-
 
 This will limit the results returned to only verification attempts of a person. The list of filters includes:
 

@@ -1,6 +1,7 @@
 ---
 id: continuing-verification
 title: Continuing Verification
+sidebar_position: 2
 ---
 
 # Continuing Verification
@@ -19,8 +20,6 @@ The same setup function  as [Registering and Verifying New Individuals](https:
 
 | <p>`greenidUI.setup({`</p><p>`    environment: "test",`</p><p>`    frameId: "greenid-div",`</p><p>`    errorCallback: onError,`</p><p>`    sessionCompleteCallback: onSessionComplete,`</p><p>`    sourceAttemptCallback: onSourceAttempt,`</p><p>`    sessionCancelledCallback: onSessionCancel,`</p><p>`    preSubmitValidationCallback: myValidator`</p><p>`});`</p> |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
-
 
 Note that the registerCallback parameter is not required, because no registration is performed.   Also, in this particular example, a form submit event is not used, therefore the formId parameter is not required.  Also, the country parameter is not required, since the verification attempt has already been registered, and the country has already been set.
 

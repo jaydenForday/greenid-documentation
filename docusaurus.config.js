@@ -10,8 +10,8 @@ import {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'GreenID Docs',
-  tagline: 'Your tagline here',
+  title: 'greenID Documentation',
+  tagline: 'For users and developers',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -22,8 +22,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-org-name', // Usually your GitHub org/user name.
-  projectName: 'greenid-docs', // Usually your repo name.
+  organizationName: 'GBG', // Usually your GitHub org/user name.
+  projectName: 'greenid-documentation', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -41,30 +41,62 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/your-org-name/greenid-docs/tree/main/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/your-org-name/greenid-docs/tree/main/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
+    ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            id: "api-core_v5",
+            spec: 'static/core_v5.yaml',
+            route: 'docs/api-reference/core_v5',
+          },
+          {
+            id: "api-hosted_web",
+            spec: 'static/hosted_web.yaml',
+            route: 'docs/api-reference/hosted_web',
+          },
+          {
+            id: "api-documents_images",
+            spec: 'static/documents_images.yaml',
+            route: 'docs/api-reference/documents_images',
+          },
+          {
+            id: "api-watchlist_results",
+            spec: 'static/watchlist_results.yaml',
+            route: 'docs/api-reference/watchlist_results',
+          },
+          {
+            id: "api-get_results",
+            spec: 'static/get_results.yaml',
+            route: 'docs/api-reference/get_results',
+          }
+        ],
+        theme: {
+          options: {
+            hideDownloadButton: true,
+            hideLogo: true,
+            disableSearch: true,
+            hideLoading: false,
+            hideSingleRequestSampleTab: false,
+            layout: 'side-by-side',
+          },
+        },
+      },
     ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      colorMode: {
+        disableSwitch: false,
+        respectPrefersColorScheme: true
+      },
       navbar: {
         logo: {
           alt: 'GreenID Logo',
@@ -73,30 +105,57 @@ const config = {
         },
         items: [{
             to: 'docs/greenid-overview/overview/what-is-greenid',
-            label: 'Overview' 
+            label: 'Overview',
+            activeBaseRegex: `/greenid-overview/`  
           },
           {
             to: 'docs/developer-guides/overview',
-            label: 'Developer Guides' 
+            label: 'Developer Guides',
+            activeBaseRegex: `/developer-guides/`  
           },
           {
             to: 'docs/integration-methods/overview',
-            label: 'Integration Methods' 
+            label: 'Integration Methods',
+            activeBaseRegex: `/integration-methods/` 
           },
           {
-            to: 'docs/api-reference/core-api-details-examples',
-            label: 'API Reference' 
+            label: 'API Reference',
+            activeBaseRegex: `/api-reference/`,
+            items: [
+              {
+                label: "Core V5",
+                to:  "docs/api-reference/core_v5"
+              },
+              {
+                label: "Hosted Web",
+                to:  "docs/api-reference/hosted_web"
+              },
+              {
+                label: "Documents & Images",
+                to:  "docs/api-reference/documents_images"
+              },
+              {
+                label: "Watchlist Results (Comprehensive Watchlist)",
+                to:  "docs/api-reference/watchlist_results"
+              },
+              {
+                label: "Verification Result",
+                to:  "docs/api-reference/get_results"
+              },
+            ]
           },
           {
             to: 'docs/updates-and-releases/latest-news-and-updates',
-            label: 'Updates and Releases' 
+            label: 'Updates and Releases',
+            activeBaseRegex: `/updates-and-releases/`
           },
           {
             to: 'docs/customer-support-faqs/contact-details',
-            label: 'Customer Support / FAQs' 
+            label: 'Customer Support / FAQs',
+            activeBaseRegex: `/customer-support-faqs/`
           },
           {
-            href: 'https://github.com/your-org-name/greenid-docs',
+            href: 'https://github.com/jaydenForday/greenid-documentation',
             label: 'GitHub',
             position: 'right' 
           }
@@ -104,64 +163,75 @@ const config = {
       },
       footer: {
         style: 'dark',
+        logo: {
+          src: 'img/GBG_logo_white_RGB.svg',
+          //srcDark: '/static/img/GBG_logo__RGB.svg',
+          alt: 'GreenID Documentation | GreenID Docs',
+          height: '36px',
+        },
         links: [{
-            title: 'Docs',
+            title: 'Quick Links',
             items: [{
-                label: 'Overview',
-                to: 'docs/greenid-overview/overview-and-options-comparison',
+                label: 'greenID Website',
+                href: 'https://gbg-greenid.com/',
               },
               {
-                label: 'Developer Guides',
-                to: 'docs/developer-guides/quickstart/integration-method-admin-panel',
+                label: 'GBG',
+                href: 'https://www.gbgplc.com/apac/',
               },
               {
-                label: 'Integration Methods',
-                to: 'docs/integration-methods/overview',
+                label: 'Request a Demo',
+                href: 'https://gbg-greenid.com/request-a-demo/',
               },
               {
-                label: 'API Reference',
-                to: 'docs/api-reference/core-api-details-examples',
-              },
-              {
-                label: 'Updates and Releases',
-                to: 'docs/updates-and-releases/changelog',
-              },
-              {
-                label: 'Customer Support / FAQs',
-                to: 'docs/customer-support-faqs/faqs/api',
-              },
+                label: 'Privacy Policy',
+                href: 'https://www.gbgplc.com/apac/legal-and-regulatory/privacy-policy-anz/',
+              }
             ],
           },
           {
-            title: 'Community',
+            title: 'Solutions',
             items: [{
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Identity Verification',
+                href: 'https://gbg-greenid.com/solutions/identity-verification/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Document Verification',
+                href: 'https://gbg-greenid.com/solutions/document-verification/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Global Watchlist Screening',
+                href: 'https://gbg-greenid.com/solutions/global-watchlist-screening/',
               },
+              {
+                label: 'Business Verification',
+                href: 'https://gbg-greenid.com/solutions/business-verification/',
+              },
+              {
+                label: 'GBG Trust Alert',
+                href: 'https://gbg-greenid.com/solutions/gbg-trust-alert/',
+              }
             ],
           },
           {
-            title: 'More',
-            items: [{
-                label: 'Blog',
-                to: '/blog',
+            title: 'Resources',
+            items: [
+              {
+                label: 'Contact Us',
+                to: '/docs/customer-support-faqs/contact-details',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/your-org-name/greenid-docs',
+                label: 'Support',
+                href: 'https://gbgplc.atlassian.net/servicedesk/customer/portals',
+              },
+              {
+                label: 'FAQs',
+                to: '/docs/customer-support-faqs/faqs/admin-panel',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Your Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} GB Group plc ('GBG'). Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
