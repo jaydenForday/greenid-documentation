@@ -5,27 +5,31 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "tinacms build && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "dev": "cross-env TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"docusaurus start\" --datalayer-port 9001"
   },
   "dependencies": {
     "@docusaurus/core": "^3.6.1",
     "@docusaurus/preset-classic": "^3.6.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
+    "cross-env": "^7.0.3",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "redocusaurus": "^2.2.0"
+    "redocusaurus": "^2.2.0",
+    "tinacms": "^2.4.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.4.0",
-    "@docusaurus/types": "3.4.0"
+    "@docusaurus/types": "3.4.0",
+    "@tinacms/cli": "^1.7.0"
   },
   "browserslist": {
     "production": [
