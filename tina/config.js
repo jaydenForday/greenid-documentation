@@ -5,7 +5,7 @@ const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
   process.env.HEAD ||
-  "tina-setup"; // Use "tina-setup" initially
+  "main"; // Use "tina-setup" initially
 
 // Check if the environment is local or cloud-based
 const isLocal = process.env.TINA_LOCAL === "true";
